@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Promo Shop</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Promo Shop: artículos promocionales personalizados con tu logo en Ecuador. Bolígrafos, termos, libretas, bolsos, gorras y más, con stock disponible.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: tienda primero. Banda morada de marca (hero con buscador) → 3 líneas de negocio → catálogo con filtros laterales → empresas → socio corporativo como banda lateral secundaria → footer. Contenedor 1240px. */
+:root{
+  --brand:#3B1670; --brand-2:#2A0F52; --brand-3:#4C2190; --orange:#F7931E; --orange-2:#E2561A;
+  --bg:#F6F3FB; --surface:#FFFFFF; --surface-2:#EEE8F7; --ink:#1F0F3A; --muted:#6A5C83; --line:#E3DAF1;
+  --ok:#13804A; --warn:#B45309; --bad:#B42318;
+  --on-brand:#FFFFFF; --on-brand-muted:#C9B8E8;
+  --f-display:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:16px; --shadow:0 14px 34px -16px rgba(43,15,82,.28);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#120820; --surface:#1C1030; --surface-2:#251641; --ink:#F3EEFB; --muted:#AC9DC8; --line:#35245A;
+  --ok:#4CC584; --warn:#F5B454; --bad:#FF8A80; --brand-2:#1F0B3D; --shadow:0 14px 34px -16px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#120820; --surface:#1C1030; --surface-2:#251641; --ink:#F3EEFB; --muted:#AC9DC8; --line:#35245A;
+  --ok:#4CC584; --warn:#F5B454; --bad:#FF8A80; --brand-2:#1F0B3D; --shadow:0 14px 34px -16px rgba(0,0,0,.7); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--brand-2)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-display);font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-2)}
+.grad{background:linear-gradient(120deg,var(--orange),var(--orange-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font-family:var(--f-display);font-weight:700;font-size:14px;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .2s,background .2s,border-color .2s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-o{background:linear-gradient(135deg,var(--orange),var(--orange-2));color:#fff;box-shadow:0 10px 22px -10px rgba(226,86,26,.8)}
+.btn-o:hover{box-shadow:0 14px 28px -10px rgba(226,86,26,1)}
+.btn-p{background:var(--brand);color:#fff}
+.btn-p:hover{background:var(--brand-3)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--orange)}
+.btn-light{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.28)}
+.btn-light:hover{background:rgba(255,255,255,.18)}
+.btn-sm{padding:8px 14px;font-size:13px}
+.btn svg{width:17px;height:17px;flex:none}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* Top strip + header */
+.strip{background:var(--orange-2);color:#fff;font-size:12.5px;font-weight:600}
+.strip .wrap{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;padding-block:7px}
+.strip span{display:inline-flex;align-items:center;gap:6px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--brand-2);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.07)}
+.top .wrap{display:flex;align-items:center;gap:18px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;flex:none}
+.logo svg{width:42px;height:42px}
+.logo b{display:block;font-family:var(--f-display);font-weight:900;font-size:21px;letter-spacing:.01em;line-height:.95}
+.logo small{display:block;font-family:var(--f-display);font-weight:800;font-size:13px;letter-spacing:.42em;color:var(--orange)}
+nav.main{display:flex;gap:2px;margin-left:auto;align-items:center}
+nav.main a{font-family:var(--f-display);font-weight:600;font-size:14px;text-decoration:none;padding:9px 13px;border-radius:9px;color:var(--on-brand-muted)}
+nav.main a:hover{color:#fff;background:rgba(255,255,255,.08)}
+nav.main a.partner{color:var(--orange);border:1.5px solid rgba(247,147,30,.45);margin-left:6px}
+.cart-btn{position:relative;background:rgba(255,255,255,.1);border:0;color:#fff;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;cursor:pointer;flex:none}
+.cart-btn svg{width:22px;height:22px}
+.cart-btn b{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;border-radius:10px;background:var(--orange-2);font-size:11px;display:grid;place-items:center;padding:0 5px;font-family:var(--f-display)}
+@media (max-width:900px){nav.main{display:none}.acct{margin-left:auto}}
+
+/* Hero */
+.hero{background:radial-gradient(900px 480px at 88% 0%,#5B2BA3 0%,transparent 62%),radial-gradient(600px 400px at 0% 100%,#2A0F52 0%,transparent 70%),var(--brand);color:#fff;overflow:hidden;position:relative}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding-block:56px 64px}
+.hero h1{font-size:clamp(34px,5.2vw,62px);font-weight:900;letter-spacing:-.015em}
+.hero p.lead{font-size:17.5px;color:var(--on-brand-muted);max-width:50ch;margin-top:18px}
+.hero-search{display:flex;align-items:center;gap:8px;background:#fff;border-radius:999px;padding:6px 6px 6px 20px;margin-top:28px;max-width:560px;box-shadow:0 20px 40px -18px rgba(0,0,0,.5)}
+.hero-search svg{width:20px;height:20px;color:#6A5C83;flex:none}
+.hero-search input{border:0;outline:0;flex:1;min-width:0;padding:10px 0;color:#1F0F3A;background:transparent;font-size:15px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.quick button{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer}
+.quick button:hover{background:rgba(255,255,255,.2)}
+.facts{display:flex;flex-wrap:wrap;gap:34px;margin-top:34px}
+.facts b{display:block;font-family:var(--f-display);font-weight:900;font-size:28px;font-variant-numeric:tabular-nums}
+.facts span{font-size:13px;color:var(--on-brand-muted)}
+.collage{position:relative;aspect-ratio:1/1;max-width:520px;width:100%;margin-left:auto}
+.collage .blob{position:absolute;inset:8%;border-radius:42% 58% 55% 45%/50% 45% 55% 50%;background:linear-gradient(135deg,var(--orange),var(--orange-2));opacity:.95}
+.collage .tile{position:absolute;background:#fff;border-radius:22px;box-shadow:0 26px 50px -22px rgba(0,0,0,.6);overflow:hidden;display:grid;place-items:center}
+.collage .tile img{width:100%;height:100%;object-fit:contain;padding:8%}
+.collage .t1{width:50%;aspect-ratio:1;left:2%;top:6%;transform:rotate(-6deg)}
+.collage .t2{width:42%;aspect-ratio:1;right:2%;top:2%;transform:rotate(5deg)}
+.collage .t3{width:44%;aspect-ratio:1;left:10%;bottom:2%;transform:rotate(4deg)}
+.collage .t4{width:46%;aspect-ratio:1;right:4%;bottom:8%;transform:rotate(-4deg)}
+.collage .badge{position:absolute;left:44%;top:44%;transform:translate(-50%,-50%) rotate(-8deg);background:var(--brand-2);color:#fff;border:2px solid var(--orange);border-radius:999px;padding:10px 16px;font-family:var(--f-display);font-weight:800;font-size:14px;white-space:nowrap;z-index:2}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-block:40px 52px}.collage{max-width:400px;margin:0 auto}}
+
+/* Pilares */
+.pillars{margin-top:-34px;position:relative;z-index:3}
+.pillars .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;gap:16px;align-items:flex-start;text-decoration:none;box-shadow:var(--shadow);transition:transform .2s;min-width:0}
+.pillar:hover{transform:translateY(-3px)}
+.pillar i{flex:none;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--brand);color:#fff}
+.pillar.main i{background:linear-gradient(135deg,var(--orange),var(--orange-2))}
+.pillar i svg{width:24px;height:24px}
+.pillar h3{font-size:17px}
+.pillar p{font-size:13.5px;color:var(--muted);margin-top:4px}
+@media (max-width:860px){.pillars .grid3{grid-template-columns:1fr}}
+
+section.band{padding-block:76px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:28px}
+.sec-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:900;margin-top:8px;letter-spacing:-.01em}
+.sec-head p{color:var(--muted);max-width:54ch}
+
+/* Catálogo */
+.shop{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:start}
+aside.filters{position:sticky;top:90px;display:flex;flex-direction:column;gap:18px}
+.fbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.fbox h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.cat-list{display:flex;flex-direction:column;gap:2px}
+.cat-list button{display:flex;justify-content:space-between;gap:10px;background:none;border:0;text-align:left;padding:8px 10px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:500;color:var(--ink)}
+.cat-list button span{color:var(--muted);font-size:12.5px;font-variant-numeric:tabular-nums}
+.cat-list button:hover{background:var(--surface-2)}
+.cat-list button[aria-pressed="true"]{background:var(--brand);color:#fff;font-weight:700}
+.cat-list button[aria-pressed="true"] span{color:var(--on-brand-muted)}
+.toggle{display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer}
+.toggle input{width:18px;height:18px;accent-color:var(--orange-2)}
+.shop-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:18px}
+.search{flex:1 1 240px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--line);border-radius:999px;padding:0 16px;min-width:0}
+.search:focus-within{border-color:var(--orange)}
+.search input{border:0;background:transparent;outline:0;padding:11px 0;width:100%;min-width:0}
+.search svg{width:18px;height:18px;color:var(--muted);flex:none}
+select.sort{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 14px;font-weight:600;font-size:13.5px}
+.count{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chips-m{display:none;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px}
+.chips-m button{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:600;font-size:13px;cursor:pointer}
+.chips-m button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+@media (max-width:900px){.shop{grid-template-columns:1fr}aside.filters{display:none}.chips-m{display:flex}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .2s,box-shadow .2s;cursor:pointer}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.pimg{aspect-ratio:1/1;background:#fff;position:relative;display:grid;place-items:center;max-width:100%;overflow:hidden}
+.pimg img{width:100%;height:100%;object-fit:contain;padding:34px 16px 44px;transition:transform .35s}
+.pimg .frame{transition:transform .35s}.card:hover .pimg .frame{transform:translateX(-50%) scale(1.04)}
+.ph{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(135deg,#F3EDFC,#E6DAF7)}
+.ph svg{width:44%;height:44%}
+.stock{position:absolute;left:10px;top:10px;font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;background:#fff;border:1px solid #E3DAF1;color:#13804A;display:inline-flex;align-items:center;gap:5px}
+.stock::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.stock.low{color:#B45309}
+.stock.out{color:#B42318}
+.card .body{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;flex:1;border-top:1px solid var(--line)}
+.card .cat{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card h3{font-size:14.5px;font-weight:700;line-height:1.3}
+.dots{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.dot{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--line)}
+.dots small{font-size:12px;color:var(--muted);margin-left:3px}
+.card .foot{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto}
+.price small{display:block;font-size:11px;color:var(--muted)}
+.price b{font-family:var(--f-display);font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.add{width:38px;height:38px;border-radius:12px;border:0;background:var(--brand);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none}
+.add:hover{background:var(--orange-2)}
+.add svg{width:18px;height:18px}
+.more{display:flex;justify-content:center;margin-top:26px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:44px;border:2px dashed var(--line);border-radius:var(--r)}
+.updated{font-size:12.5px;color:var(--muted);margin-top:14px}
+
+/* Empresas */
+.biz{background:var(--surface-2)}
+.biz-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.steps{display:grid;gap:14px}
+.step{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.step .n{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--brand);color:#fff;font-family:var(--f-display);font-weight:900}
+.step h4{font-size:16px}
+.step p{font-size:14px;color:var(--muted);margin-top:3px}
+.tech{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:22px}
+.tech div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.tech b{font-family:var(--f-display);font-size:14.5px;display:block}
+.tech span{font-size:13px;color:var(--muted)}
+.quote-cta{margin-top:22px;background:var(--brand);color:#fff;border-radius:var(--r);padding:22px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.quote-cta h3{font-size:19px}
+.quote-cta p{color:var(--on-brand-muted);font-size:14px}
+@media (max-width:860px){.biz-grid{grid-template-columns:1fr}}
+
+/* Socio (secundario) */
+.partner-band{background:var(--brand-2);color:#fff}
+.partner-band .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-block:64px}
+.partner-band h2{font-size:clamp(26px,3.2vw,36px);font-weight:900;margin-top:8px}
+.partner-band p.lead{color:var(--on-brand-muted);margin-top:12px;max-width:52ch}
+.pben{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.pben div{border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px;min-width:0}
+.pben b{font-family:var(--f-display);font-size:15px;display:block;color:#fff}
+.pben span{font-size:13px;color:var(--on-brand-muted)}
+.pcard{background:var(--surface);color:var(--ink);border-radius:20px;padding:24px;box-shadow:0 30px 60px -24px rgba(0,0,0,.6);min-width:0}
+.pcard h3{font-size:20px}
+.pcard .sub{color:var(--muted);font-size:14px;margin-top:4px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.f{display:flex;flex-direction:column;gap:5px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-size:12.5px;font-weight:600;color:var(--muted)}
+.f input,.f select,.f textarea{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--orange)}
+.f textarea{resize:vertical;min-height:70px}
+.code-box{margin-top:16px;border-radius:14px;padding:16px;background:linear-gradient(135deg,var(--orange),var(--orange-2));color:#fff;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.code-box b{font-family:var(--f-display);font-weight:900;font-size:26px;letter-spacing:.08em}
+@media (max-width:860px){.partner-band .wrap{grid-template-columns:1fr}}
+@media (max-width:480px){.fields,.pben{grid-template-columns:1fr}}
+
+/* Panel interno */
+details.admin{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px}
+details.admin summary{cursor:pointer;font-family:var(--f-display);font-weight:700}
+details.admin .note{font-size:13px;color:var(--muted);margin-top:8px}
+.dom{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+.dom h4{font-size:15px;margin-bottom:10px}
+.dom .tw{overflow-x:auto}
+.dom table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.dom th,.dom td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+.dom th{background:var(--brand);color:#fff;font-family:var(--f-display);font-size:13px}
+.dom tr.rec td{background:rgba(247,147,30,.1);font-weight:700}
+.dom td span{background:var(--orange-2);color:#fff;font-size:11px;padding:2px 8px;border-radius:999px;margin-left:6px}
+
+footer{background:#170A2D;color:#B9A9D6;font-size:13.5px}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;padding-block:44px}
+footer h4{color:#fff;font-size:14px;margin-bottom:10px}
+footer a{display:block;text-decoration:none;padding:3px 0}
+footer a:hover{color:#fff}
+footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-top:18px;font-size:12.5px}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+
+/* Modal producto */
+dialog{border:0;padding:0;border-radius:22px;width:min(960px,calc(100vw - 24px));max-height:calc(100dvh - 24px);background:var(--surface);color:var(--ink);box-shadow:0 40px 90px -20px rgba(0,0,0,.55)}
+dialog::backdrop{background:rgba(18,8,32,.62);backdrop-filter:blur(4px)}
+.m-grid{display:grid;grid-template-columns:1fr 1fr}
+.m-img{background:#fff;position:relative;min-width:0;min-height:440px}
+.m-img img{width:100%;height:100%;object-fit:contain;padding:28px 28px 64px;max-height:520px}
+.m-body{padding:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.m-body h3{font-size:24px;font-weight:800}
+.m-close{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(31,15,58,.85);color:#fff;font-size:20px;cursor:pointer;z-index:3}
+.colors{display:flex;flex-wrap:wrap;gap:8px}
+.colors button{display:flex;align-items:center;gap:7px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px 6px 7px;cursor:pointer;font-size:13px;font-weight:600}
+.colors button .dot{width:18px;height:18px}
+.colors button small{color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.colors button[aria-pressed="true"]{border-color:var(--orange-2);box-shadow:0 0 0 3px rgba(247,147,30,.2)}
+.colors button.out{opacity:.5}
+.buy{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--surface-2);border-radius:14px;padding:14px}
+.qty{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;background:var(--surface);overflow:hidden}
+.qty button{width:38px;height:40px;border:0;background:none;font-size:18px;cursor:pointer}
+.qty input{width:72px;text-align:center;border:0;background:none;font-family:var(--f-display);font-weight:700;outline:0}
+.buy .tot{margin-left:auto;text-align:right}
+.buy .tot small{display:block;font-size:12px;color:var(--muted)}
+.buy .tot b{font-family:var(--f-display);font-size:22px;font-variant-numeric:tabular-nums}
+.tiers{font-size:12.5px;color:var(--muted)}
+.tramos{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tramos div{border:1.5px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center;min-width:0}
+.tramos span{display:block;font-size:11px;color:var(--muted);font-weight:600}
+.tramos b{font-family:var(--f-display);font-size:15px;font-variant-numeric:tabular-nums}
+.tramos div.on{border-color:var(--orange-2);background:rgba(247,147,30,.1)}
+.price small.vol{margin-top:2px;color:var(--ok);font-weight:600}
+@media (max-width:420px){.tramos{grid-template-columns:repeat(2,1fr)}}
+details.share{border:1px dashed var(--orange);border-radius:12px;padding:10px 14px}
+details.share summary{cursor:pointer;font-weight:700;font-size:13.5px;color:var(--orange-2)}
+.share-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+@media (max-width:760px){.m-grid{grid-template-columns:1fr}.m-img{min-height:300px}.m-img img{max-height:300px}}
+
+/* Cotización (panel lateral) */
+.drawer{position:fixed;inset:0;z-index:80;display:flex;justify-content:flex-end;background:rgba(18,8,32,.55);opacity:0;pointer-events:none;transition:opacity .2s}
+.drawer.open{opacity:1;pointer-events:auto}
+.drawer .pane{width:min(440px,100%);height:100%;background:var(--surface);display:flex;flex-direction:column;transform:translateX(30px);transition:transform .25s;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer.open .pane{transform:none}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}
+.d-head h3{font-size:19px}
+.d-list{flex:1;overflow:auto;padding:12px 20px;display:flex;flex-direction:column;gap:12px}
+.li{display:grid;grid-template-columns:62px 1fr auto;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px}
+.li .pimg{border-radius:10px;border:1px solid var(--line)}
+.li .pimg img{padding:4px}
+.li .mark{display:none}
+/* Marca sobre el producto: logo simulado impreso donde hay superficie; si no hay, etiqueta al costado con flecha */
+.frame{position:absolute;top:30px;bottom:40px;left:50%;aspect-ratio:1/1;transform:translateX(-50%);max-width:calc(100% - 16px)}
+.pimg .frame img{padding:0;width:100%;height:100%;object-fit:contain}
+.m-img .frame{top:24px;bottom:24px}
+.mark{position:absolute;inset:0;pointer-events:none;z-index:2}
+.mark .logo{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);transform:translate(-50%,-50%) rotate(var(--a));display:block}
+.mark .logo svg{width:100%;height:100%;display:block;overflow:visible;shape-rendering:geometricPrecision;text-rendering:geometricPrecision}
+.mark .logo.on-light{opacity:1}
+.mark .logo.on-dark{opacity:1}
+.mark svg.arr{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ptag{position:absolute;right:8px;bottom:8px;z-index:3;background:#2A0F52;display:flex;align-items:center;color:#fff;font-family:var(--f-display);font-weight:800;font-size:10.5px;letter-spacing:.05em;padding:5px 10px;border-radius:999px;white-space:nowrap;box-shadow:0 6px 14px -6px rgba(226,86,26,.8);pointer-events:none}
+.ptag svg{height:14px;width:auto;display:block}.m-img .ptag{padding:8px 14px;right:14px;bottom:14px}.m-img .ptag svg{height:20px}
+.li .frame{top:4px;bottom:4px}.li .ptag{display:none}
+.tech .uv{border-left:4px solid var(--orange-2)}
+.acct{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:0;color:#fff;height:44px;border-radius:12px;padding:0 14px;cursor:pointer;font-family:var(--f-display);font-weight:700;font-size:13.5px;flex:none}
+.acct svg{width:20px;height:20px}
+@media (max-width:900px){.acct span{display:none}.acct{padding:0 12px}.cart-btn{margin-left:0}}
+#auth{width:min(460px,calc(100vw - 24px))}
+.auth-in{padding:26px;display:flex;flex-direction:column;gap:14px}
+.auth-tabs{display:flex;gap:4px;background:var(--surface-2);border-radius:999px;padding:4px}
+.auth-tabs button{flex:1;border:0;background:none;border-radius:999px;padding:9px;font-family:var(--f-display);font-weight:700;font-size:13.5px;cursor:pointer;color:var(--muted)}
+.auth-tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 2px 8px -4px rgba(0,0,0,.3)}
+.auth-in form{display:flex;flex-direction:column;gap:12px}
+.auth-msg{font-size:13.5px;border-radius:10px;padding:10px 12px}
+.auth-msg.ok{background:rgba(19,128,74,.1);color:var(--ok)}
+.auth-msg.err{background:rgba(180,35,24,.1);color:var(--bad)}
+.linkbtn{background:none;border:0;color:var(--orange-2);font-weight:600;cursor:pointer;padding:0;font-size:13px;align-self:flex-start}
+.li h4{font-size:13.5px;font-family:var(--f-body);font-weight:700}
+.li small{color:var(--muted);font-size:12px;display:block}
+.li input{width:70px;border:1.5px solid var(--line);border-radius:8px;padding:5px 8px;background:var(--bg);margin-top:4px}
+.li .rm{background:none;border:0;color:var(--bad);cursor:pointer;font-size:12.5px;font-weight:600}
+.li .sum{text-align:right;font-family:var(--f-display);font-weight:800;font-variant-numeric:tabular-nums}
+.d-foot{border-top:1px solid var(--line);padding:16px 20px;display:flex;flex-direction:column;gap:12px}
+.d-foot .row{display:flex;justify-content:space-between;font-size:14px}
+.d-foot .row b{font-family:var(--f-display);font-size:20px}
+.d-foot .fields{margin-top:0}
+.d-foot .acts{display:flex;gap:10px}
+.d-foot .acts .btn{flex:1}
+.d-note{font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:#1F0F3A;color:#fff;padding:12px 18px;border-radius:999px;font-weight:600;font-size:14px;z-index:100;transition:.25s;pointer-events:none;border:1px solid rgba(255,255,255,.15);max-width:calc(100vw - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+
+<div class="strip"><div class="wrap">
+  <span>Personalizamos con tu logo</span><span>Envíos a todo Ecuador</span><span id="strip-stock">Stock actualizado</span>
+</div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="Promo Shop, inicio">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7931E"/><stop offset="1" stop-color="#E2561A"/></linearGradient></defs><path d="M24 23v-5a8 8 0 0 1 16 0v5" fill="none" stroke="#F7931E" stroke-width="4" stroke-linecap="round"/><path d="M14 23h36l3 33a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="url(#lg)"/><circle cx="24" cy="29" r="2" fill="#2A0F52"/><circle cx="40" cy="29" r="2" fill="#2A0F52"/><path d="M32 33l3.4 6.9 7.6 1.1-5.5 5.4 1.3 7.5-6.8-3.6-6.8 3.6 1.3-7.5-5.5-5.4 7.6-1.1z" fill="#fff"/><path d="M32 2v6M17 6l4 4M47 6l-4 4" stroke="#F7931E" stroke-width="3" stroke-linecap="round"/></svg>
+      <span><b>PROMO</b><small>SHOP</small></span>
+    </a>
+    <nav class="main" aria-label="Principal">
+      <a href="#productos">Productos</a>
+      <a href="#empresas">Empresas</a>
+      <a href="#contacto">Contacto</a>
+      <a href="#socio" class="partner">Socio corporativo</a>
+    </nav>
+    <button class="acct" id="acct-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span id="acct-label">Ingresar</span></button>
+    <button class="cart-btn" id="cart-open" aria-label="Ver cotización">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
+      <b id="cart-n">0</b>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--orange)">Artículos promocionales · Ecuador</div>
+      <h1 style="margin-top:14px">Tu marca en las manos de <span class="grad">todos tus clientes</span>.</h1>
+      <p class="lead">Bolígrafos, termos, libretas, bolsos, gorras y kits corporativos personalizados con tu logo. Elige del stock disponible, arma tu cotización y nosotros nos encargamos del resto.</p>
+      <form class="hero-search" id="hero-search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="hq" type="search" placeholder="¿Qué buscas? Termo, bolígrafo, gorra…" aria-label="Buscar productos">
+        <button class="btn btn-o" type="submit">Buscar</button>
+      </form>
+      <div class="quick" id="quick"></div>
+      <div class="facts">
+        <div><b id="f-models">0</b><span>productos en catálogo</span></div>
+        <div><b id="f-units">0</b><span>unidades en stock</span></div>
+        <div><b>13</b><span>categorías</span></div>
+      </div>
+    </div>
+    <div class="collage" aria-hidden="true">
+      <div class="blob"></div>
+      <div class="tile t1" data-img="6370"></div>
+      <div class="tile t2" data-img="5753"></div>
+      <div class="tile t3" data-img="6401"></div>
+      <div class="tile t4" data-img="6420"></div>
+      <div class="badge">Con tu logo</div>
+    </div>
+  </div>
+</section>
+
+<div class="pillars"><div class="wrap"><div class="grid3">
+  <a class="pillar main" href="#productos"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7h12l1 13H5z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg></i><div><h3>Artículos promocionales</h3><p>Catálogo con stock disponible y precios por unidad. Cotiza en minutos.</p></div></a>
+  <a class="pillar" href="#empresas"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></i><div><h3>Pedidos corporativos</h3><p>Personalización, kits de bienvenida y regalos para tu equipo y clientes.</p></div></a>
+  <a class="pillar" href="#socio"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a5 5 0 0 1 3.5 6"/></svg></i><div><h3>Socio corporativo</h3><p>Revende nuestro catálogo sin inventario y gana por cada pedido.</p></div></a>
+</div></div></div>
+
+<section class="band" id="productos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Catálogo</div><h2>Productos con stock disponible</h2></div>
+      <p>Precios por unidad sin IVA, antes de personalización. Personalizamos con impresión UV directo o UV DTF.</p>
+    </div>
+    <div class="shop">
+      <aside class="filters">
+        <div class="fbox"><h4>Categorías</h4><div class="cat-list" id="cats"></div></div>
+        <div class="fbox"><h4>Disponibilidad</h4><label class="toggle"><input type="checkbox" id="instock" checked> Solo con stock</label></div>
+      </aside>
+      <div style="min-width:0">
+        <div class="chips-m" id="cats-m"></div>
+        <div class="shop-bar">
+          <label class="search" for="q"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Buscar por nombre o código" autocomplete="off"></label>
+          <select class="sort" id="sort" aria-label="Ordenar">
+            <option value="pop">Más stock</option><option value="asc">Precio: menor a mayor</option><option value="desc">Precio: mayor a menor</option><option value="az">Nombre A-Z</option>
+          </select>
+          <span class="count" id="count"></span>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div class="more"><button class="btn btn-ghost" id="more" type="button">Ver más productos</button></div>
+        <p class="updated" id="updated"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band biz" id="empresas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Pedidos corporativos</div><h2>Del catálogo a tu evento, sin complicaciones</h2></div>
+      <p>Trabajamos con empresas, instituciones, agencias y emprendedores. Te enviamos el arte digital para aprobar antes de producir.</p>
+    </div>
+    <div class="biz-grid">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Arma tu cotización</h4><p>Agrega productos, colores y cantidades desde el catálogo.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Envíanos tu logo</h4><p>En PDF, AI, PNG o JPG. Te decimos si va en UV directo o UV DTF.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Aprueba el arte</h4><p>Recibes una simulación digital del producto con tu marca.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>Producción y entrega</h4><p>Personalizamos y despachamos a tu oficina o a cualquier ciudad del país.</p></div></div>
+      </div>
+      <div>
+        <h3 style="font-size:20px">Cómo personalizamos</h3>
+        <p style="color:var(--muted);font-size:14px;margin-top:6px">Trabajamos con impresión UV: full color, colores vivos, alta definición y resistente al uso diario.</p>
+        <div class="tech">
+          <div class="uv"><b>UV directo</b><span>Imprimimos tu logo directamente sobre el producto: termos, libretas, bolígrafos, cajas, acrílicos y superficies rígidas. Acabado brillante con ligero relieve.</span></div>
+          <div class="uv"><b>UV DTF</b><span>Transfer UV full color que se adhiere a superficies curvas o irregulares: vasos, tomatodos, tazas, llaveros y piezas donde no entra la impresión directa.</span></div>
+        </div>
+        <div class="quote-cta">
+          <div><h3>¿Necesitas algo especial?</h3><p>Kits de bienvenida, ferias, campañas y fechas especiales.</p></div>
+          <button class="btn btn-o" type="button" data-open-cart>Ver mi cotización</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="partner-band" id="socio">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--orange)">Programa Socio Corporativo</div>
+      <h2>Vende artículos promocionales con tu propia marca, sin inventario</h2>
+      <p class="lead">Copia cualquier producto del catálogo con foto, descripción y precio, y publícalo en tus redes o tu página web. Tú fijas tu precio; nosotros producimos y entregamos.</p>
+      <div class="pben">
+        <div><b>Sin stock propio</b><span>Vendes primero, produces después.</span></div>
+        <div><b>Precio preferencial</b><span>Tu margen lo decides tú.</span></div>
+        <div><b>Contenido listo</b><span>Textos para redes, web y WhatsApp.</span></div>
+        <div><b>Tu código de socio</b><span>Identifica cada pedido que generas.</span></div>
+      </div>
+    </div>
+    <div class="pcard">
+      <h3>Hazte socio</h3>
+      <p class="sub">Regístrate y recibe tu código al instante.</p>
+      <form id="f-socio">
+        <div class="fields">
+          <div class="f"><label for="s-nombre">Nombre</label><input id="s-nombre" required placeholder="María Pérez"></div>
+          <div class="f"><label for="s-empresa">Empresa o marca</label><input id="s-empresa" placeholder="Agencia MP"></div>
+          <div class="f"><label for="s-wa">WhatsApp</label><input id="s-wa" required inputmode="tel" placeholder="0991234567"></div>
+          <div class="f"><label for="s-ciudad">Ciudad</label><input id="s-ciudad" placeholder="Guayaquil"></div>
+        </div>
+        <button class="btn btn-o" type="submit" style="width:100%;margin-top:16px">Obtener mi código</button>
+      </form>
+      <div class="code-box" id="code-box" hidden><div><span style="font-size:13px">Tu código de socio</span><br><b id="code-out"></b></div><button class="btn btn-light btn-sm" id="code-copy" type="button">Copiar</button></div>
+      <p class="d-note" style="margin-top:12px">Con tu código activo, cada producto muestra la opción «Copiar para mis redes».</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contacto" style="padding-block:56px">
+  <div class="wrap">
+    <details class="admin">
+      <summary>Panel interno: subir productos, dominio y costos</summary>
+      <p class="note">Para productos que no están en el catálogo del proveedor. Se guardan en este navegador.</p>
+      <form id="f-prod">
+        <div class="fields">
+          <div class="f full"><label for="p-nombre">Nombre</label><input id="p-nombre" required placeholder="Mochila antirrobo con tu logo en UV"></div>
+          <div class="f"><label for="p-cat">Categoría</label><select id="p-cat"></select></div>
+          <div class="f"><label for="p-precio">Precio por unidad (USD)</label><input id="p-precio" type="number" step="0.01" min="0" required></div>
+          <div class="f"><label for="p-stock">Stock</label><input id="p-stock" type="number" min="0" value="100"></div>
+          <div class="f"><label for="p-img">Foto</label><input id="p-img" type="file" accept="image/*"></div>
+        </div>
+        <button class="btn btn-p" type="submit" style="margin-top:14px">Publicar producto</button>
+      </form>
+      <div class="dom">
+        <h4>Dominio y publicación (Cloudflare, precios consultados el 12 nov 2026)</h4>
+        <div class="tw"><table>
+          <tr><th>Concepto</th><th>Primer año</th><th>Renovación</th></tr>
+          <tr class="rec"><td>Dominio promoshopec.com <span>Recomendado</span></td><td>$11.17</td><td>$11.17 / año</td></tr>
+          <tr><td>Hosting de la página (Cloudflare Pages)</td><td>Gratis</td><td>Gratis</td></tr>
+        </table></div>
+        <p class="note">Total para tener la página con tu propio dominio: <b>$11.17 al año</b>. Dirección actual: promoshop-ec.pages.dev</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="logo" style="margin-bottom:12px"><svg viewBox="0 0 64 64" aria-hidden="true" style="width:36px;height:36px"><path d="M24 23v-5a8 8 0 0 1 16 0v5" fill="none" stroke="#F7931E" stroke-width="4" stroke-linecap="round"/><path d="M14 23h36l3 33a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#E87A1C"/><path d="M32 33l3.4 6.9 7.6 1.1-5.5 5.4 1.3 7.5-6.8-3.6-6.8 3.6 1.3-7.5-5.5-5.4 7.6-1.1z" fill="#fff"/></svg><span><b>PROMO</b><small>SHOP</small></span></div>
+      <p>Artículos promocionales personalizados para empresas, instituciones y emprendedores en todo Ecuador.</p>
+    </div>
+    <div><h4>Tienda</h4><a href="#productos">Catálogo</a><a href="#empresas">Pedidos corporativos</a><a href="#socio">Socio corporativo</a></div>
+    <div><h4>Contacto</h4><p>WhatsApp: <span id="wa-txt"></span></p><p style="margin-top:6px">Lunes a viernes, 08:30 a 17:30</p></div>
+    <div class="legal">© 2026 Promo Shop · Precios en USD sin IVA · Imágenes referenciales</div>
+  </div>
+</footer>
+
+<dialog id="modal" aria-labelledby="m-title">
+  <button class="m-close" id="m-close" aria-label="Cerrar">×</button>
+  <div class="m-grid">
+    <div class="m-img pimg" id="m-img"></div>
+    <div class="m-body">
+      <div><span class="eyebrow" id="m-cat"></span><h3 id="m-title" style="margin-top:6px"></h3><p id="m-code" style="color:var(--muted);font-size:13px;margin-top:4px"></p></div>
+      <div><div style="font-size:13px;font-weight:700;margin-bottom:8px">Color: <span id="m-color"></span></div><div class="colors" id="m-colors"></div></div>
+      <div class="buy">
+        <div class="qty"><button type="button" id="q-minus" aria-label="Menos">−</button><input id="m-qty" type="number" min="1" value="50" aria-label="Cantidad"><button type="button" id="q-plus" aria-label="Más">+</button></div>
+        <div class="tot"><small id="m-unit"></small><b id="m-total"></b></div>
+      </div>
+      <div class="tramos" id="m-tramos" aria-label="Precio por unidad según cantidad"></div>
+      <p class="tiers" id="m-stock"></p>
+      <button class="btn btn-o" id="m-add" type="button">Agregar a mi cotización</button>
+      <details class="share" id="m-share">
+        <summary>Soy socio: copiar para mis redes o mi web</summary>
+        <div class="share-acts">
+          <button class="btn btn-ghost btn-sm" data-share="redes" type="button">Texto para redes</button>
+          <button class="btn btn-ghost btn-sm" data-share="wa" type="button">Ficha WhatsApp</button>
+          <button class="btn btn-ghost btn-sm" data-share="web" type="button">Código para web</button>
+        </div>
+      </details>
+    </div>
+  </div>
+</dialog>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="pane" role="dialog" aria-label="Mi cotización">
+    <div class="d-head"><h3>Mi cotización</h3><button class="btn btn-ghost btn-sm" id="cart-close" type="button">Cerrar</button></div>
+    <div class="d-list" id="d-list"></div>
+    <div class="d-foot">
+      <div class="row"><span>Subtotal referencial</span><b id="d-total">$0.00</b></div>
+      <div class="fields">
+        <div class="f"><label for="c-nombre">Nombre</label><input id="c-nombre" placeholder="Tu nombre"></div>
+        <div class="f"><label for="c-empresa">Empresa</label><input id="c-empresa" placeholder="Empresa"></div>
+      </div>
+      <div class="acts">
+        <a class="btn btn-o" id="d-wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+        <button class="btn btn-ghost" id="d-copy" type="button">Copiar</button>
+      </div>
+      <p class="d-note">Precios sin IVA ni personalización. Te respondemos con la cotización final y el arte digital.</p>
+    </div>
+  </div>
+</div>
+<dialog id="auth" aria-labelledby="auth-title">
+  <button class="m-close" id="auth-close" aria-label="Cerrar">×</button>
+  <div class="auth-in">
+    <div><span class="eyebrow">Mi cuenta</span><h3 id="auth-title" style="font-size:22px;margin-top:6px">Bienvenido a Promo Shop</h3></div>
+    <div id="auth-out">
+      <div class="auth-tabs" role="tablist"><button type="button" role="tab" data-at="login" aria-selected="true">Iniciar sesión</button><button type="button" role="tab" data-at="signup" aria-selected="false">Crear cuenta</button></div>
+      <form id="f-login" style="margin-top:14px">
+        <div class="f"><label for="l-email">Correo electrónico</label><input id="l-email" type="email" required autocomplete="email" placeholder="tucorreo@empresa.com"></div>
+        <div class="f"><label for="l-pass">Contraseña</label><input id="l-pass" type="password" required autocomplete="current-password" minlength="6"></div>
+        <button class="linkbtn" type="button" id="forgot">Olvidé mi contraseña</button>
+        <button class="btn btn-o" type="submit">Iniciar sesión</button>
+      </form>
+      <form id="f-signup" style="margin-top:14px" hidden>
+        <div class="fields" style="margin-top:0">
+          <div class="f"><label for="r-nombre">Nombre</label><input id="r-nombre" required autocomplete="name"></div>
+          <div class="f"><label for="r-empresa">Empresa (opcional)</label><input id="r-empresa" autocomplete="organization"></div>
+          <div class="f full"><label for="r-email">Correo electrónico</label><input id="r-email" type="email" required autocomplete="email"></div>
+          <div class="f full"><label for="r-pass">Contraseña (mínimo 8 caracteres)</label><input id="r-pass" type="password" required minlength="8" autocomplete="new-password"></div>
+        </div>
+        <button class="btn btn-o" type="submit">Crear mi cuenta</button>
+        <p class="d-note">Te enviaremos un correo para confirmar tu cuenta antes de ingresar.</p>
+      </form>
+    </div>
+    <div id="auth-in-state" hidden>
+      <p style="font-size:15px">Sesión iniciada como <b id="auth-email"></b></p>
+      <button class="btn btn-ghost" id="logout" type="button" style="margin-top:12px">Cerrar sesión</button>
+    </div>
+    <div class="auth-msg" id="auth-msg" hidden></div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const WHATSAPP = "593000000000";     // número de ventas de Promo Shop (formato 593 + número sin el 0)
+/* Tramos por cantidad: precio = precio Global Import × factor del tramo × 1.07 (7% total: transporte, impresión y otros gastos), redondeado a .49/.99 */
+const TRAMOS = [ {desde:1, hasta:49, factor:3}, {desde:50, hasta:99, factor:2.5}, {desde:100, hasta:999, factor:2}, {desde:1000, hasta:Infinity, factor:1.8} ];
+const EXTRA_TOTAL = 1.07;
+const MARGEN_SOCIO = 1.15;          // precio para socios = costo proveedor × 1.15
+const STOCK_FECHA = "12 de noviembre de 2026";
+const IMG = id => "https://globalimport.com.ec/web/image/product.template/" + id + "/image_512";
+const SUPABASE_URL = "https://kcggvrzazsfylpyxakul.supabase.co";            // URL del proyecto Supabase (inicio de sesión y cuentas)
+const SUPABASE_ANON_KEY = "sb_publishable_FUNh02q865-2x1v6PkRKqQ_ciS9LDOw";       // clave pública "anon" del proyecto Supabase
+const DATA = [{"n":"BOLIGRAFO SPLENDOR","c":"Bolígrafos","v":[[5826,"GB000206","NEGRO",0.19,21483],[6504,"GB000770","AZUL ELECTRICO",0.19,10119],[5827,"GB000207","PLATEADA",0.19,6645],[6505,"GB000771","VERDE",0.19,3842],[5823,"GB000203","AZUL OSCURO",0.19,3105],[5828,"GB000208","ROJO",0.19,1457]]},{"n":"BOLIGRAFO ORBIT","c":"Bolígrafos","v":[[5784,"GB000164","TURQUESA",0.13,11786],[5782,"GB000162","NEGRO",0.13,8211],[6498,"GB000764","NARANJA",0.13,8121],[5783,"GB000163","ROJO",0.13,8115],[5785,"GB000165","VERDE",0.13,7590],[5781,"GB000161","FUCSIA",0.13,1562],[5780,"GB000160","BLANCO",0.13,74],[5779,"GB000159","AZUL",0.13,3],[6733,"GB000918","MORADO",0.13,2]]},{"n":"LLAVERO DESTAPADOR FIESTA","c":"Llaveros y herramientas","v":[[6045,"GB000425","AZUL",0.33,9664],[6646,"GB000884","ROJO",0.33,9450],[6044,"GB000424","NEGRO",0.33,5551],[6046,"GB000426","BLANCO",0.33,5351],[6047,"GB000427","NARANJA",0.33,4966],[6645,"GB000883","VERDE",0.33,3994]]},{"n":"BOLIGRAFO CLICK PLUS","c":"Bolígrafos","v":[[5681,"GB000061","NARANJA",0.15,10069],[5676,"GB000056","BLANCO TURQUESA",0.15,5009],[5684,"GB000064","TURQUESA",0.15,4880],[5675,"GB000055","BLANCO ROJO",0.15,4082],[6732,"GB000917","BLANCO FUCSIA",0.15,4040],[5671,"GB000051","BLANCO AMARILLO",0.15,3712],[5680,"GB000060","BLANCO",0.15,1823],[5672,"GB000052","BLANCO AZUL",0.15,838],[5677,"GB000057","BLANCO VERDE",0.15,5],[5678,"GB000058","AMARILLO",0.15,1]]},{"n":"BOLIGRAFO COLORI GRIP","c":"Bolígrafos","v":[[5694,"GB000074","ROJO SOLIDO",0.18,9785],[5692,"GB000072","NARANJA SOLIDO",0.18,4689],[5695,"GB000075","TURQUESA SOLIDO",0.18,3975],[5689,"GB000069","BLANCO SOLIDA",0.18,3409],[5693,"GB000073","NEGRO SOLIDO",0.18,2929],[5687,"GB000067","AMARILLO SOLIDO",0.18,175],[5688,"GB000068","AZUL SOLIDO",0.18,55],[5691,"GB000071","MORADO SOLIDO",0.18,39]]},{"n":"BOLIGRAFO ECOLOGICA HEGA","c":"Bolígrafos","v":[[5709,"GB000089","ROJO",0.2,4919],[6750,"GB000930","NARANJA",0.2,4799],[6749,"GB000929","VERDE",0.2,4717],[6751,"GB000931","NEGRO",0.2,3892],[5705,"GB000085","AZUL",0.2,3588]]},{"n":"TOMATODO GLOBAL CON TAPA STANDAR 650 ML","c":"Termos, vasos y tomatodos","v":[[6212,"GB000592","AZUL TRASL",0.83,4444],[6222,"GB000602","TRANSPARENTE",0.86,3844],[6218,"GB000598","NEGRO TRASL",0.83,3148],[6214,"GB000594","BLANCO SOL",0.86,2851],[6217,"GB000597","NARANJA TRASL",0.86,2075],[6211,"GB000591","AMARILLO TRASL",0.86,2004],[6223,"GB000603","VERDE TRASL",0.86,1933],[6220,"GB000600","PLATEADO SOL",0.78,237]]},{"n":"BOLIGRAFO METALICA ALUMA","c":"Bolígrafos","v":[[5755,"GB000135","PLATEADA",0.79,9913],[5753,"GB000133","GRIS",0.79,8798],[5754,"GB000134","NEGRO",0.79,1746]]},{"n":"BOLIGRAFO SUPREMA","c":"Bolígrafos","v":[[5838,"GB000218","PLATEADO AMARILLO",0.29,6915],[5839,"GB000219","PLATEADO AZUL",0.29,3297],[5845,"GB000225","PLATEADO VERDE",0.29,1888],[5841,"GB000221","PLATEADO NARANJA",0.29,1839],[5850,"GB000230","BLANCO ROJO",0.2,1824],[5846,"GB000226","BLANCO AMARILLO",0.2,1703],[5843,"GB000223","PLATEADO ROJO",0.29,1601],[5842,"GB000222","PLATEADO NEGRO",0.29,1068],[5844,"GB000224","PLATEADO TRANSPARENTE",0.29,198],[5848,"GB000228","BLANCO NARANJA",0.2,0]]},{"n":"BOLIGRAFO Y CLIP CON BALON DE FUTBOL","c":"Bolígrafos","v":[[6746,"GB000933","BLANCO NEGRO",0.26,9876],[6745,"GB000932","BLANCO AZUL",0.26,9840]]},{"n":"BOLSO CAMBRELA TERMOSELLADO 30X38X10","c":"Bolsos y mochilas","v":[[6656,"GB000894","NEGRO",0.45,7209],[6655,"GB000893","AZUL",0.45,5469],[6657,"GB000895","ROJO",0.45,3100],[6658,"GB000896","BLANCO",0.45,2365],[6662,"GB000900","FUCSIA",0.45,882],[6661,"GB000899","MORADO",0.45,83],[6659,"GB000897","NARANJA",0.45,50],[6660,"GB000898","VERDE",0.45,4]]},{"n":"BOLIGRAFO METALICO ROMA","c":"Bolígrafos","v":[[5770,"GB000150","AZUL",0.6,8858],[6735,"GB000920","ROJO",0.6,4979],[5771,"GB000151","NEGRO",0.6,2645],[6734,"GB000919","AZUL OSCURO",0.6,1928]]},{"n":"BOLIGRAFO CON BASE","c":"Bolígrafos","v":[[6742,"GB000926","BLANCO/NEGRO",1.06,4985],[6743,"GB000927","BLANCO/AZUL",1.06,4935],[6744,"GB000928","BLANCO/BLANCO",1.06,4784]]},{"n":"BOLIGRAFO BAMBOO GRIP","c":"Bolígrafos","v":[[6499,"GB000765","AZUL",0.62,4992],[6501,"GB000767","NEGRO",0.62,4872],[6500,"GB000766","ROJO",0.62,4821]]},{"n":"BOLIGRAFO BICOLOR","c":"Bolígrafos","v":[[6503,"GB000769","BLANCO ROJO",0.3,5499],[6502,"GB000768","BLANCO AZUL",0.3,4641],[5656,"GB000036","BLANCO NEGRO",0.3,4395]]},{"n":"BOLIGRAFO WHEAT RING","c":"Bolígrafos","v":[[5871,"GB000251","ÚNICO",0.3,13473]]},{"n":"BOLIGRAFO RUBBER CLASICA","c":"Bolígrafos","v":[[6519,"GB000785","ROJO",0.48,5012],[6517,"GB000783","AZUL",0.48,3367],[6520,"GB000786","NEGRO",0.48,3154],[6518,"GB000784","BLANCO",0.48,1618]]},{"n":"BOLIGRAFO PORTA CELULAR CON TOUCH","c":"Bolígrafos","v":[[6739,"GB000924","NEGRO NEGRO",0.35,4318],[6738,"GB000923","AZUL NEGRO",0.35,4230],[6740,"GB000925","BLANCO NEGRO",0.35,3885]]},{"n":"BOLIGRAFO FAST","c":"Bolígrafos","v":[[5726,"GB000106","TURQUESA",0.15,4593],[5727,"GB000107","VERDE",0.15,4538],[5724,"GB000104","ROJO",0.15,2091],[5719,"GB000099","AZUL",0.15,289],[5722,"GB000102","NARANJA",0.15,237],[5723,"GB000103","NEGRO",0.15,32]]},{"n":"BOLIGRAFO RUBBER","c":"Bolígrafos","v":[[6514,"GB000780","AZUL",0.49,4679],[6515,"GB000781","NEGRO",0.49,4517],[6516,"GB000782","ROJO",0.49,2364]]},{"n":"LLAVERO DESTAPADOR CASCO JR","c":"Llaveros y herramientas","v":[[6496,"GB000752","ROJO",0.32,7970],[6497,"GB000753","BLANCO",0.32,2881]]},{"n":"TOMATODO CURVE 560ML PVC","c":"Termos, vasos y tomatodos","v":[[6205,"GB000585","NEGRO TRASLUCIDO",0.84,3266],[6206,"GB000586","ROJO SOLIDO",0.75,2799],[6203,"GB000583","BLANCO SOLIDO",0.84,2623],[6202,"GB000582","AZUL REY TRASLUCIDO",0.84,2048]]},{"n":"BOLIGRAFO RUBBER BAMBOO TOUCH","c":"Bolígrafos","v":[[6513,"GB000779","PLATEADO",0.52,3907],[6511,"GB000777","ROJO",0.52,3578],[6512,"GB000778","NEGRO",0.52,2717],[6510,"GB000775","AZUL ELECTRICO",0.52,268],[6509,"GB000776","AZUL MARINO",0.52,1]]},{"n":"BOLIGRAFO METALICA TOUCH CON TOUCH","c":"Bolígrafos","v":[[6737,"GB000922","PLATEADO NEGRO",0.53,4977],[6736,"GB000921","BLANCO NEGRO",0.53,4774],[5764,"GB000144","NEGRO NEGRO",0.53,343]]},{"n":"CEPILLO CON ESPEJO REDONDO","c":"Hogar y bienestar","v":[[5932,"GB000312","BLANCO",0.92,4736],[5931,"GB000311","AZUL",0.92,4413]]},{"n":"LLAVERO DESTAPADOR DE ALUMINIO FIESTA","c":"Llaveros y herramientas","v":[[6486,"GB000742","PLATEADO",0.28,4476],[6485,"GB000741","NEGRO",0.28,3997]]},{"n":"BOLIGRAFO BAMBOO","c":"Bolígrafos","v":[[6741,"GB000936","ÚNICO",0.48,4345],[6530,"GB000755","NEGRO",0.28,3961]]},{"n":"POP SOCKET","c":"Tecnología","v":[[6140,"GB000520","BLANCO",0.39,7964]]},{"n":"BOLIGRAFO AVENA CLASICA","c":"Bolígrafos","v":[[5648,"GB000028","ÚNICO",0.18,7963]]},{"n":"BOLIGRAFO ARTIC","c":"Bolígrafos","v":[[6507,"GB000773","BLANCO ROJO",0.23,4446],[6506,"GB000772","BLANCO AZUL",0.23,3516]]},{"n":"BOLIGRAFO DOCTOR","c":"Bolígrafos","v":[[5702,"GB000082","ÚNICO",0.3,7665]]},{"n":"CAJA DE COLORES ECOLOGICOS SIX","c":"Infantil","v":[[5917,"GB000297","ÚNICO",0.45,7507]]},{"n":"BOLIGRAFO DOCTORA","c":"Bolígrafos","v":[[5703,"GB000083","ÚNICO",0.3,7494]]},{"n":"GORRA CAMIONERA PREMIUM","c":"Gorras y sombreros","v":[[6405,"GB000701","NEGRO BLANCO",1.57,1864],[6406,"GB000702","ROJO BLANCO",1.57,1224],[6402,"GB000698","BLANCO",1.57,1158],[6401,"GB000697","AZUL",1.65,874],[6403,"GB000699","ROJO",1.65,791],[6408,"GB000704","VERDE BLANCO",1.57,562],[6404,"GB000700","AZUL BLANCO",1.57,522],[6407,"GB000703","MORADO BLANCO",1.57,1]]},{"n":"BOLIGRAFO CORCHO GRANN","c":"Bolígrafos","v":[[5700,"GB000080","ÚNICO",0.35,6272]]},{"n":"DESTAPADOR 3 EN 1 HARD","c":"Hogar y bienestar","v":[[5962,"GB000342","NEGRO",1.47,2952],[5961,"GB000341","BLANCO",1.47,2800]]},{"n":"BOLIGRAFO CON RUBBER","c":"Bolígrafos","v":[[6747,"GB000934","AZUL",0.26,3442],[6748,"GB000935","NEGRO",0.26,2176]]},{"n":"BOLIGRAFO MASTER","c":"Bolígrafos","v":[[5749,"GB000129","AZUL",0.73,2580],[5752,"GB000132","ROJO",0.73,2417],[5750,"GB000130","NEGRO",0.73,431],[5751,"GB000131","PLATEADO",0.73,1]]},{"n":"PASTILLERO ORGANIZADOR DAILY","c":"Hogar y bienestar","v":[[6650,"GB000888","AZUL TRASLUCIDO",0.62,2840],[6649,"GB000887","TRANSPARENTE",0.62,2588]]},{"n":"BOLIGRAFO SPACE","c":"Bolígrafos","v":[[5817,"GB000197","BLANCO FUCSIA",0.19,3552],[5819,"GB000199","BLANCO ROJO",0.19,1622],[5815,"GB000195","BLANCO AMARILLO",0.19,0]]},{"n":"BOLIGRAFO SKAY","c":"Bolígrafos","v":[[5799,"GB000179","AZUL TRASLUCIDO",0.21,5012],[5806,"GB000186","PLATEADO VERDE",0.23,73],[5802,"GB000182","NEGRO TRASLUCIDO",0.19,48]]},{"n":"LIBRETA ECOLOGICA HEGA CON BOLIGRAFO","c":"Libretas y cuadernos","v":[[6425,"GB000717","NEGRA",1.13,2503],[6427,"GB000719","ROJO",1.13,1239],[6426,"GB000718","AZUL",1.13,788],[6438,"GB000721","NARANJA",1.13,574],[6429,"GB000722","AMARILLO",1.12,11],[6428,"GB000720","VERDE",1.13,11]]},{"n":"BOLSO CAMBRELA CON TIRA COSIDO 30X37X10","c":"Bolsos y mochilas","v":[[5881,"GB000261","BEIGE",0.85,1493],[5889,"GB000269","NEGRO",0.85,1276],[6543,"GB000804","AZUL",0.85,1206],[5891,"GB000271","ROJO",0.85,737],[5885,"GB000265","BLANCO",0.85,245]]},{"n":"BOLIGRAFO METALICA PARIS","c":"Bolígrafos","v":[[5760,"GB000140","NEGRO",0.58,4282],[5759,"GB000139","AZUL",0.58,317],[5761,"GB000141","PLATEADA",0.58,308]]},{"n":"BOLIGRAFO BAMBOO BERLIN CON TOUCH","c":"Bolígrafos","v":[[5652,"GB000032","NEGRO",0.37,3042],[5653,"GB000033","PLATEADA",0.37,1250],[5651,"GB000031","AZUL",0.37,576]]},{"n":"BOLIGRAFO METALICA ROMA","c":"Bolígrafos","v":[[5762,"GB000142","BLANCO",0.6,4762]]},{"n":"BOLSO CAMBRELA PLASTIFICADO CON TIRA 27X29X12","c":"Bolsos y mochilas","v":[[6607,"GB000842","AZUL",1.0,2390],[6609,"GB000844","ROJO",1.0,890],[6608,"GB000843","NEGRO",1.0,626],[6611,"GB000846","NARANJA",1.0,494],[6612,"GB000847","VERDE",1.0,197],[6610,"GB000845","ROSADO",1.0,112]]},{"n":"BOLIGRAFO ATENAS CON TOUCH","c":"Bolígrafos","v":[[5644,"GB000024","NEGRO",0.44,2492],[5645,"GB000025","PLATEADO",0.44,2082]]},{"n":"CORDON PORTACREDENCIAL Y PORTA LLAVES","c":"Oficina","v":[[5942,"GB000322","ROJO",0.48,2127],[5940,"GB000320","AZUL",0.48,2006],[5941,"GB000321","NEGRO",0.48,415]]},{"n":"MONEDERO WONDER","c":"Kits y regalos","v":[[6102,"GB000482","CAKI",0.49,4494],[6101,"GB000481","BLANCO",0.49,43]]},{"n":"NOTEPAD DIBUJO","c":"Infantil","v":[[6111,"GB000491","ÚNICO",1.24,4399]]},{"n":"BOTELLA ECOSTAR","c":"Termos, vasos y tomatodos","v":[[5904,"GB000284","ÚNICO",1.78,4285]]},{"n":"BOLIGRAFO CONSTRUCTOR","c":"Bolígrafos","v":[[5699,"GB000079","ÚNICO",0.3,4227]]},{"n":"BOLIGRAFO METALICA BAMBOO ALFA","c":"Bolígrafos","v":[[5757,"GB000137","BLANCO",0.66,3691]]},{"n":"BOLIGRAFO RESALTADOR SELECT","c":"Bolígrafos","v":[[5797,"GB000177","NEGRO",0.62,3614],[5796,"GB000176","BLANCO",0.62,1]]},{"n":"BOLIGRAFO WHEAT STRAW","c":"Bolígrafos","v":[[5872,"GB000252","ÚNICO",0.34,3537]]},{"n":"PORTACELULAR ECOSTAND","c":"Oficina","v":[[6156,"GB000536","ÚNICO",2.0,3528]]},{"n":"BOTTLE SHAKER CON TAPA 600 ML","c":"Termos, vasos y tomatodos","v":[[6651,"GB000889","AZUL",1.73,1012],[6652,"GB000890","GRIS",1.73,1012],[5907,"GB000287","ROJO",1.73,933],[5906,"GB000286","NEGRO",1.73,569]]},{"n":"BOLIGRAFO BAMBOO CON DETALLES DE AVENA","c":"Bolígrafos","v":[[6531,"GB000756","ÚNICO",0.29,3239]]},{"n":"VASO TERMICO TUMBLER","c":"Termos, vasos y tomatodos","v":[[6374,"GB000673","NEGRO",6.49,925],[6378,"GB000676","BLANCO",6.49,893],[6377,"GB000675","AZUL MARINO",6.49,520],[6375,"GB000674","AZUL ELECTRICO",6.49,500],[6379,"GB000677","ROJO",6.49,398]]},{"n":"CUBREPARABRISAS SUMMER","c":"Kits y regalos","v":[[6712,"GB000910","ÚNICO",3.13,2942],[5959,"GB000339","ÚNICO",3.59,224]]},{"n":"BOTELLA ORIGINS / ROOT","c":"Termos, vasos y tomatodos","v":[[6753,"GB000937","CELESTE",2.25,1691],[5905,"GB000285","ÚNICO",2.25,667],[6754,"GB000938","ROSADO",2.25,305],[6755,"GB000939","VERDE",2.25,237]]},{"n":"PELOTA ANTIESTRESS FLUFFY (individual)","c":"Hogar y bienestar","v":[[6124,"GB000504","ROJO",0.73,2860],[6647,"GB000885","BLANCO",0.73,1]]},{"n":"NOTEPAD MANDALAS","c":"Oficina","v":[[6411,"GB000733","ÚNICO",1.61,2790]]},{"n":"LAPICES CON SACAPUNTAS MATITA ECO (6 COLORES)","c":"Infantil","v":[[6016,"GB000396","ÚNICO",0.54,2708]]},{"n":"CUADERNO AESTHETIC","c":"Libretas y cuadernos","v":[[6419,"GB000714","ÚNICO",3.33,1731],[6615,"GB000850","GRIS",3.33,962]]},{"n":"BOLIGRAFO MULTIECO","c":"Bolígrafos","v":[[5772,"GB000152","ÚNICO",0.53,2636]]},{"n":"BOLIGRAFO BAMBOO CLÁSICA","c":"Bolígrafos","v":[[6529,"GB000754","ÚNICO",0.35,2439]]},{"n":"VASO TERMICO TUMBLER CON SORBETE","c":"Termos, vasos y tomatodos","v":[[6588,"GB000830","BLANCO",6.71,1134],[6587,"GB000829","AZUL ELECTRICO",6.71,505],[6589,"GB000831","NEGRO",6.71,418],[6586,"GB000828","AZUL MARINO",6.71,370]]},{"n":"CUADERNO PARIS CON SOPORTE PARA CELULAR","c":"Libretas y cuadernos","v":[[6420,"GB000727","NEGRO",3.33,1309],[6421,"GB000728","AZUL",3.33,1115]]},{"n":"BOLIGRAFO ZENIT","c":"Bolígrafos","v":[[6525,"GB000791","VERDE",0.22,940],[6526,"GB000792","NARANJA",0.22,764],[6527,"GB000793","GRIS",0.22,618]]},{"n":"BOLSO CAMBRELA PLASTIFICADO CON TIRA 23X22X11","c":"Bolsos y mochilas","v":[[6601,"GB000836","AZUL",0.8,876],[6604,"GB000839","ROJO",0.8,476],[6602,"GB000837","NEGRO",0.8,368],[6605,"GB000840","NARANJA",0.8,271],[6606,"GB000841","AMARILLO",0.8,193],[6603,"GB000838","BLANCO",0.8,0]]},{"n":"MOCHILA ENCARRUJADA CAMBRELA / CORDON 40CMX34","c":"Bolsos y mochilas","v":[[6093,"GB000473","BLANCO BLANCO",0.91,1562],[6092,"GB000472","AZUL BLANCO",0.91,612]]},{"n":"SET DE RESALTADORES GEL TRIO","c":"Oficina","v":[[6648,"GB000886","ÚNICO",1.48,2032]]},{"n":"CUADERNO CON BOLIGRAFO CORK","c":"Libretas y cuadernos","v":[[5957,"GB000337","NEGRO",2.48,1740],[5958,"GB000338","ROJO",2.48,149],[5956,"GB000336","AZUL",2.48,121]]},{"n":"TOMATODO GLOBAL TONO 1 CON TAPA STANDAR 650 ML","c":"Termos, vasos y tomatodos","v":[[6357,"GB000735","ROJO",0.78,1987]]},{"n":"DESTAPADOR MAGNETICO COMPACT","c":"Llaveros y herramientas","v":[[6654,"GB000892","ÚNICO",1.03,1967]]},{"n":"POP SOCKET SUBLIMABLE","c":"Tecnología","v":[[6143,"GB000523","ÚNICO",0.44,1930]]},{"n":"SEPARADOR DE AUDIFONOS HEART","c":"Tecnología","v":[[6166,"GB000546","AZUL",1.06,1927]]},{"n":"VISOR DE REALIDAD VIRTUAL","c":"Tecnología","v":[[6000,"GB000380","ÚNICO",3.18,1926]]},{"n":"FUNDA DE PAPEL PEQUEÑA","c":"Empaques","v":[[5989,"GB000369","KRAFT",0.49,1868]]},{"n":"MOCHILA ENCARRUJADA CAMBRELA / CORDON 40CMX32","c":"Bolsos y mochilas","v":[[6095,"GB000475","NARANJA BLANCO",0.91,1719],[6098,"GB000478","VERDE CLARO BLANCO",0.91,18]]},{"n":"CARTUCHERA BIO","c":"Oficina","v":[[5927,"GB000307","ÚNICO",1.9,1702]]},{"n":"TERMO RUBBER DE ACERO INOXIDABLE","c":"Termos, vasos y tomatodos","v":[[6370,"GB000669","BLANCO",6.75,798],[6371,"GB000670","ROJO",6.75,445],[6675,"GB000902","AZUL ELECTRICO",6.75,412],[6368,"GB000667","NEGRO",6.75,0]]},{"n":"SEPARADOR DE AUDIFONO HEART","c":"Tecnología","v":[[6165,"GB000545","ROJO",1.06,1650]]},{"n":"CUADERNO MODERNO CON BOLIGRAFO CON ELASTICO","c":"Libretas y cuadernos","v":[[6619,"GB000854","KRAFT NEGRO",2.09,817],[6618,"GB000853","KRAFT AZUL",2.09,810]]},{"n":"CUADERNO ECOLOGICO HEGA CON BOLIGRAFO","c":"Libretas y cuadernos","v":[[6638,"GB000873","NARANJA",1.88,695],[6637,"GB000872","ROJO",1.88,682],[6636,"GB000871","VERDE",1.88,187],[6634,"GB000869","AZUL",1.88,28]]},{"n":"LLAVERO LINTERNA ECOTORCH","c":"Llaveros y herramientas","v":[[6064,"GB000444","ÚNICO",0.88,1574]]},{"n":"LLAVERO FLEXOMETRO RINO","c":"Llaveros y herramientas","v":[[6059,"GB000439","ROJO",0.7,1529]]},{"n":"SET EJECUTIVO TIPO MALETIN","c":"Libretas y cuadernos","v":[[6621,"GB000856","AZUL",11.21,500],[6622,"GB000857","GRIS",11.21,390],[6624,"GB000859","VERDE",11.21,380],[6623,"GB000858","ROJO",11.21,233],[6435,"GB000716","NEGRO",11.21,3]]},{"n":"RELOJ DIGITAL TORRE","c":"Oficina","v":[[6162,"GB000542","ÚNICO",4.16,1463]]},{"n":"VASO TERMICO TUMBLER 360 ML","c":"Termos, vasos y tomatodos","v":[[6385,"GB000683","AZUL",5.36,584],[6384,"GB000682","NEGRO",5.36,504],[6387,"GB000685","ROJO",5.36,358]]},{"n":"MR. ANTIESTRES","c":"Hogar y bienestar","v":[[6483,"GB000739","ÚNICO",1.69,1419]]},{"n":"MOCHILA ENCARRUJADA CAMBRELA / CORDON 40CMX32CM","c":"Bolsos y mochilas","v":[[6097,"GB000477","ROJO BLANCO",0.91,744],[6099,"GB000479","VERDE BLANCO",0.91,568],[6096,"GB000476","NEGRO BLANCO",0.91,56],[6094,"GB000474","FUCSIA BLANCO",0.91,26]]},{"n":"FRISBEE FROSTY BEACH","c":"Temporada","v":[[5986,"GB000366","ROJO",1.07,712],[5984,"GB000364","AZUL",1.07,333],[5985,"GB000365","BLANCO",1.07,316]]},{"n":"PONCHO LLUVIA BARRILITO CON LLAVERO","c":"Hogar y bienestar","v":[[6136,"GB000516","ROJO",0.96,1348],[6134,"GB000514","AZUL",0.96,0],[6135,"GB000515","BLANCO",0.96,0]]},{"n":"BOLIGRAFO BAMBOO 3 MINAS","c":"Bolígrafos","v":[[5650,"GB000030","ÚNICO",0.53,1279]]},{"n":"BOLSO ECOLIENZO 30X40 CM","c":"Bolsos y mochilas","v":[[5895,"GB000275","ÚNICO",2.83,1229]]},{"n":"AUDIFONO CILINDRO","c":"Tecnología","v":[[5624,"GB000004","NEGRO",2.24,640],[5623,"GB000003","AZUL",2.24,585]]},{"n":"TOMATODO TINMAN CON DOBLE TAPA 750ML","c":"Termos, vasos y tomatodos","v":[[6723,"GB000916","BLANCO",3.64,1164]]},{"n":"FUNDA DE PAPEL MEDIANA","c":"Empaques","v":[[5988,"GB000368","KRAFT",0.56,1147]]},{"n":"CUADERNO ECOLOGICO NOVA 18*13","c":"Libretas y cuadernos","v":[[6458,"GB000758","NEGRO",1.92,423],[6456,"GB000797","ROJO",1.92,353],[6457,"GB000757","VERDE",1.92,317],[6455,"GB000796","AZUL",1.92,48]]},{"n":"BOLIGRAFO PORTACELULAR WHEAT","c":"Bolígrafos","v":[[5793,"GB000173","BEIGE",0.34,1137]]},{"n":"TOMATODO METALICO SICLO","c":"Termos, vasos y tomatodos","v":[[6568,"GB000819","PLATEADO",3.81,1117],[6642,"GB000880","NEGRO",3.81,0]]},{"n":"CAJA CLASICA CON BOLIGRAFO METALICO","c":"Bolígrafos","v":[[6534,"GB000800","PLATEADA",1.72,547],[6533,"GB000799","NEGRO",1.72,449],[6535,"GB000801","GRIS",1.72,117]]},{"n":"VASO CHILLMUG","c":"Termos, vasos y tomatodos","v":[[6243,"GB000623","AZUL",2.18,931],[6245,"GB000625","ROJO",2.18,156]]},{"n":"SET ECOLOGICO FOREST","c":"Oficina","v":[[6173,"GB000553","ÚNICO",2.64,1030]]},{"n":"DESTAPADOR MAGNETICO FUTBOL","c":"Llaveros y herramientas","v":[[6653,"GB000891","ÚNICO",1.74,994]]},{"n":"JARRO PLASTICO 250ML","c":"Termos, vasos y tomatodos","v":[[6012,"GB000392","ROJO SOLIDO",0.45,951]]},{"n":"PORTA CEPILLO DENTAL","c":"Hogar y bienestar","v":[[6149,"GB000529","ROJO",0.45,767],[6148,"GB000528","BLANCO",0.45,162],[6147,"GB000527","AZUL",0.45,1]]},{"n":"SOPORTE MULTIUSO","c":"Tecnología","v":[[6089,"GB000469","ÚNICO",4.97,924]]},{"n":"NAVAJA SUIZO BAMBOO","c":"Llaveros y herramientas","v":[[6110,"GB000490","ÚNICO",2.95,914]]},{"n":"SET EJECUTIVO DE CORCHO","c":"Libretas y cuadernos","v":[[6434,"GB000715","ÚNICO",7.65,907]]},{"n":"CUADERNO DUAL CON BOLIGRAFO","c":"Libretas y cuadernos","v":[[5945,"GB000325","ÚNICO",3.44,899]]},{"n":"FLORERO PLEGABLE FLOVAS","c":"Hogar y bienestar","v":[[5978,"GB000358","BLANCO NEGRO",0.43,536],[5977,"GB000357","AZUL",0.43,339]]},{"n":"CAJA PREMIUM CON BOLIGRAFO METALICO","c":"Bolígrafos","v":[[6532,"GB000798","BLANCO",2.78,852]]},{"n":"BOLSO CAMBRELA CON TIRA COSIDO 42X42X10","c":"Bolsos y mochilas","v":[[5877,"GB000257","AZUL",0.9,829]]},{"n":"FUNDA DE PAPEL GRANDE","c":"Empaques","v":[[5987,"GB000367","KRAFT",0.65,824]]},{"n":"ESTUCHE PARA BOLIGRAFO DOBLE SERVICIO","c":"Bolígrafos","v":[[5975,"GB000355","TRANSPARENTE",0.85,806]]},{"n":"VISERA EVA","c":"Temporada","v":[[6266,"GB000646","AZUL",0.81,799]]},{"n":"BOTELLA DE VIDRIO / AVENA CON SOPORTE PARA CELULAR","c":"Termos, vasos y tomatodos","v":[[6528,"GB000794","ÚNICO",2.4,795]]},{"n":"BOLSO CAMBRELA CON TIRAS COSIDO 42X42X10","c":"Bolsos y mochilas","v":[[5893,"GB000273","ROJO",0.9,779]]},{"n":"NOTAXPRESS CON NOTAS ADHESIVAS DE COLORES Y REGLA INCORPORADA","c":"Oficina","v":[[6487,"GB000743","ÚNICO",0.67,752]]},{"n":"CUADERNO CORCHO","c":"Libretas y cuadernos","v":[[5943,"GB000323","ÚNICO",2.48,743]]},{"n":"ESTUCHE CLASICO PARA BOLIGRAFO","c":"Bolígrafos","v":[[6489,"GB000745","ÚNICO",0.14,678]]},{"n":"CALENDAR POST","c":"Oficina","v":[[6437,"GB000732","2 AZUL",2.44,669],[6436,"GB000731","2 NEGRO",2.44,2]]},{"n":"CUADERNO LONDON CON POST IT Y NOTAS","c":"Libretas y cuadernos","v":[[6617,"GB000852","GRIS",2.94,297],[6616,"GB000851","ROJO",2.94,281],[6417,"GB000711","NEGRO",2.94,82],[6418,"GB000712","AZUL",2.94,10]]},{"n":"CUADERNO ESPIRAL RPET CON SOPORTE DE CELULAR","c":"Libretas y cuadernos","v":[[6641,"GB000876","GRIS",2.45,332],[6639,"GB000874","NEGRO",2.45,294],[6640,"GB000875","AZUL",2.45,9]]},{"n":"TOMATODO CILINDRO PVC 750 ML","c":"Termos, vasos y tomatodos","v":[[6197,"GB000577","AZUL TRASLUCIDO",1.17,623],[6198,"GB000578","TRANSPARENTE",1.17,0]]},{"n":"LIBRETA ECOLOGICA CON BOLIGRAFO DE FIBRA DE CAFE","c":"Libretas y cuadernos","v":[[6695,"GB000664","ÚNICO",1.48,569]]},{"n":"GORRA DE POLIESTER CON VELCRO","c":"Gorras y sombreros","v":[[6006,"GB000386","AMARILLO",1.23,546]]},{"n":"LIBRETA ECOLOGICA TAP CON POST ITS Y BOLIGRAFO","c":"Libretas y cuadernos","v":[[6430,"GB000723","AZUL",1.23,537],[6024,"GB000404","NEGRO",1.22,3],[6433,"GB000726","VERDE",1.22,3],[6432,"GB000725","BLANCO",1.22,1]]},{"n":"SET ECOLOGICO INDA","c":"Oficina","v":[[6643,"GB000881","ÚNICO",3.4,534]]},{"n":"PORTA TARJETA BUSINESS","c":"Oficina","v":[[6154,"GB000534","ÚNICO",2.19,521]]},{"n":"PARLANTE CON RADIO Y BLUETOOTH LENOX","c":"Tecnología","v":[[6117,"GB000497","BLANCO",7.2,349],[6118,"GB000498","PLATEADO",7.2,171]]},{"n":"CUADERNO EJECUTIVO","c":"Libretas y cuadernos","v":[[6614,"GB000849","ROJO",3.06,491]]},{"n":"CUADERNO CORCHO CON SOPORTE PARA CELULAR BAMBOO","c":"Libretas y cuadernos","v":[[6424,"GB000713","ÚNICO",3.08,477]]},{"n":"MOUSEPAD COMFORT","c":"Oficina","v":[[6495,"GB000749","AZUL",2.49,445]]},{"n":"LIBRETA NATURA","c":"Libretas y cuadernos","v":[[6632,"GB000867","ROJO",1.36,369],[6629,"GB000864","KRAFT",1.36,34],[6633,"GB000868","NARANJA",1.36,32],[6630,"GB000865","AZUL",1.36,2],[6631,"GB000866","NEGRO",1.36,1]]},{"n":"TABLA CHEESE TIME","c":"Hogar y bienestar","v":[[6480,"GB000736","ÚNICO",10.32,421]]},{"n":"MOUSE PAD SUBLIMATTE","c":"Oficina","v":[[6104,"GB000484","ÚNICO",1.06,390]]},{"n":"LIBRETA CORCHO","c":"Libretas y cuadernos","v":[[6022,"GB000402","ÚNICO",1.49,380]]},{"n":"IMANTADO PREMIUM PORTARETRATO Y PORTA NOTAS","c":"Oficina","v":[[6011,"GB000391","ROJO",0.74,364]]},{"n":"MOCHILA ENCARRUJADA SUBLIMABLE CON CORDON 34X40","c":"Bolsos y mochilas","v":[[6100,"GB000480","ÚNICO",1.78,345]]},{"n":"KIT FITNESS","c":"Kits y regalos","v":[[6706,"GB000905","ÚNICO",4.39,333]]},{"n":"LLAVERO METALICO DESTAPADOR OPEN","c":"Llaveros y herramientas","v":[[6071,"GB000451","ÚNICO",1.13,301]]},{"n":"LLAVERO METALICO CIRCULO CON ESPEJO","c":"Llaveros y herramientas","v":[[6765,"GB000943","ÚNICO",1.05,300]]},{"n":"LLAVERO FLEXO NIVEL","c":"Llaveros y herramientas","v":[[6050,"GB000430","NEGRO",0.7,280],[6051,"GB000431","ROJO",0.56,13]]},{"n":"DISPENSADOR DE CINTA","c":"Oficina","v":[[5963,"GB000343","BLANCO",1.22,289]]},{"n":"AGENDA EJECUTIVA DE 100 HOJAS","c":"Libretas y cuadernos","v":[[6762,"GB000940","GRIS",4.94,278]]},{"n":"CUADERNO LONDON","c":"Libretas y cuadernos","v":[[5954,"GB000334","PLATEADO",2.44,262],[6415,"GB000709","NEGRO",2.44,2],[5955,"GB000335","ROJO",2.44,2],[6416,"GB000710","AZUL",2.44,1]]},{"n":"SACAPUNTA ROUND","c":"Oficina","v":[[6164,"GB000544","ÚNICO",0.16,255]]},{"n":"CAJA EMPRENDEDOR 25X19X9CM","c":"Empaques","v":[[5918,"GB000298","KRAFT",1.51,237]]},{"n":"KIT OFICINA","c":"Kits y regalos","v":[[6758,"GB000939","NEGRO",11.42,237]]},{"n":"MULTIRUEDA","c":"Llaveros y herramientas","v":[[6484,"GB000740","ÚNICO",8.73,231]]},{"n":"ESPEJO CIRCULAR","c":"Hogar y bienestar","v":[[5964,"GB000344","ÚNICO",0.94,223]]},{"n":"PORTA BOLIGRAFOS 3 EN","c":"Oficina","v":[[6145,"GB000525","ÚNICO",2.34,218]]},{"n":"LLAVERO HANGER","c":"Llaveros y herramientas","v":[[6062,"GB000442","NEGRO BLANCO",0.39,188],[6063,"GB000443","ROJO BLANCO",0.39,29]]},{"n":"BOLIGRAFO GLEN","c":"Bolígrafos","v":[[5729,"GB000109","BLANCO/AMARILLO",0.31,215]]},{"n":"LIBRETA META CON BOLIGRAFO","c":"Libretas y cuadernos","v":[[6590,"GB000832","AZUL",2.23,193]]},{"n":"TOMATODO GLOBAL TONO 2 CON TAPA STANDAR 650 ML","c":"Termos, vasos y tomatodos","v":[[6301,"GB000340","ROJO",0.78,188]]},{"n":"LLAVERO METALICO RECTANGULAR","c":"Llaveros y herramientas","v":[[6674,"GB000901","ÚNICO",0.89,178]]},{"n":"CAJA PLEGABLE PREMIUM","c":"Empaques","v":[[5923,"GB000303","ÚNICO",5.02,101],[6548,"GB000808","2 BLANCO",7.19,65],[5924,"GB000304","ÚNICO",7.62,11],[6547,"GB000807","BLANCO",5.54,0]]},{"n":"TERMO CON SOPORTE MAGNETICO PARA CELULAR 720 ML","c":"Termos, vasos y tomatodos","v":[[6382,"GB000680","ÚNICO",12.15,177]]},{"n":"CAJA CLASICA PARA BOLIGRAFO","c":"Bolígrafos","v":[[6488,"GB000744","ÚNICO",1.09,170]]},{"n":"CAJA PARA CUADERNO Y BOLIGRAFO","c":"Empaques","v":[[6477,"GB000761","NEGRA",2.48,156]]},{"n":"PENDULO DE ARENA TUKUD","c":"Oficina","v":[[6130,"GB000510","ÚNICO",13.13,141]]},{"n":"GORRA DE ALGODON PREMIUM CON VELCRO","c":"Gorras y sombreros","v":[[6005,"GB000385","BEIGE",1.61,132]]},{"n":"SET TECNOLOGICO FLASH","c":"Tecnología","v":[[6178,"GB000558","ROJO",2.75,119]]},{"n":"LLAVERO DESTAPADOR BOTELLA","c":"Llaveros y herramientas","v":[[6040,"GB000420","ÚNICO",1.2,115]]},{"n":"RECIPIENTE PLASTICO CUADRADO HERMETICO","c":"Hogar y bienestar","v":[[6159,"GB000539","ÚNICO",2.6,108]]},{"n":"BOLSO CAMBRELA CON TIRAS 46X41X9","c":"Bolsos y mochilas","v":[[5878,"GB000258","AZUL",0.84,90]]},{"n":"SPORTBAG ECOLOGICO RPET Y CORCHO","c":"Bolsos y mochilas","v":[[6183,"GB000563","ÚNICO",3.37,87]]},{"n":"SET DE LINTERNA CON PINZAS 9 FUNCIONES","c":"Llaveros y herramientas","v":[[6170,"GB000550","ÚNICO",9.84,84]]},{"n":"VASO COFFEE BREAK","c":"Termos, vasos y tomatodos","v":[[6246,"GB000626","ÚNICO",2.22,83]]},{"n":"VASO FROSTY CON TAPA FUTBOLERA 450ML","c":"Termos, vasos y tomatodos","v":[[6253,"GB000633","ROJO",0.93,75]]},{"n":"VISOR DE ESCRITORIO PARA CELULARES ZOOM","c":"Tecnología","v":[[6267,"GB000647","ÚNICO",7.84,74]]},{"n":"SET DE TAPETES DESINFECTANTES","c":"Hogar y bienestar","v":[[6171,"GB000551","ÚNICO",22.48,69]]},{"n":"BOLIGRAFO BILLY DECK","c":"Bolígrafos","v":[[5660,"GB000040","ROJO",0.29,48],[5661,"GB000041","TRANSPARENTE",0.29,13],[5659,"GB000039","NEGRO",0.28,0]]},{"n":"TOMATODO METALICO ULTRA TINMAN","c":"Termos, vasos y tomatodos","v":[[6228,"GB000608","BLANCO",3.66,36],[6230,"GB000610","PLATEADO",3.66,23]]},{"n":"BOLIGRAFO ESENCIAL","c":"Bolígrafos","v":[[6492,"GB000750","NEGRO",0.3,58]]},{"n":"BOLSO DE CAMBRELA SUBLIMABLE 30X40X10","c":"Bolsos y mochilas","v":[[6355,"GB000661","ÚNICO",0.79,56]]},{"n":"TERMO RUBBER CON BASE 1000 ML","c":"Termos, vasos y tomatodos","v":[[6388,"GB000686","ÚNICO",12.75,55]]},{"n":"POP SOCKET / SOPORTE PARA CELULAR STRIKE","c":"Tecnología","v":[[6138,"GB000518","NEGRO",0.42,51]]},{"n":"CUADERNO META CON BOLIGRAFO","c":"Libretas y cuadernos","v":[[6579,"GB000825","GRIS",3.13,45]]},{"n":"SOMBRERO SAFARI IMPORTADO PREMIUM","c":"Gorras y sombreros","v":[[6399,"GB000695","CAKI",8.09,36],[6398,"GB000694","AZUL",8.09,8]]},{"n":"TERMOMETRO INFRAROJO PREMIUM","c":"Hogar y bienestar","v":[[6195,"GB000575","ÚNICO",37.49,44]]},{"n":"PORTA NOTAS SOBRE","c":"Oficina","v":[[6152,"GB000532","ÚNICO",0.77,43]]},{"n":"PORTA NOTAS CON POST IT","c":"Oficina","v":[[6626,"GB000861","KRAFT",0.51,22],[6627,"GB000862","AZUL",0.51,18]]},{"n":"TAZA DE CERAMICA","c":"Termos, vasos y tomatodos","v":[[6391,"GB000689","ÚNICO",2.05,39]]},{"n":"SOPORTE PARA CELULAR CRUDO","c":"Oficina","v":[[6302,"GB000650","ÚNICO",1.07,37]]},{"n":"TERMO CAMPING CON DESTAPADOR DE 750 ML","c":"Termos, vasos y tomatodos","v":[[6192,"GB000572","AZUL",4.99,36]]},{"n":"OVEROL PRO TALLA M","c":"Hogar y bienestar","v":[[6116,"GB000496","AZUL INDIGO",23.41,34]]},{"n":"BOLIGRAFO THICKER","c":"Bolígrafos","v":[[5856,"GB000236","BLANCO ROJO",0.28,31]]},{"n":"LONCHERA TERMICA CAMPING","c":"Bolsos y mochilas","v":[[6395,"GB000691","GRIS",12.7,30]]},{"n":"ESPONJA DE BAÑO PLAMESH","c":"Hogar y bienestar","v":[[5974,"GB000354","ROSADO",0.94,28]]},{"n":"VASO DE VIDRIO CON TAPA BAMBU","c":"Termos, vasos y tomatodos","v":[[6256,"GB000636","ÚNICO",4.25,28]]},{"n":"VASO CERVECERO ACRILICO 420ML","c":"Termos, vasos y tomatodos","v":[[6242,"GB000622","ÚNICO",5.64,26]]},{"n":"LINTERNA COLGANTE","c":"Llaveros y herramientas","v":[[6036,"GB000416","AZUL",1.87,25]]},{"n":"VISOR FACE","c":"Hogar y bienestar","v":[[6268,"GB000648","ÚNICO",4.99,22]]},{"n":"CARTUCHERA CON LAPICES DE COLORES MARTINA","c":"Oficina","v":[[5928,"GB000308","ÚNICO",0.79,19]]},{"n":"ESPEJO CIRKEL","c":"Hogar y bienestar","v":[[5966,"GB000346","AZUL TRASLUCIDO",0.39,18]]},{"n":"LIBRETA CORCHEL","c":"Libretas y cuadernos","v":[[6021,"GB000401","ÚNICO",1.74,18]]},{"n":"BOLIGRAFO FARMA","c":"Bolígrafos","v":[[5717,"GB000097","ÚNICO",0.32,15]]},{"n":"BOLSO TERMICO CAMPING","c":"Bolsos y mochilas","v":[[6394,"GB000690","GRIS",9.24,15]]},{"n":"LIBRETA LONDON","c":"Libretas y cuadernos","v":[[6031,"GB000411","BLANCO",1.45,4],[6033,"GB000413","ROJO",1.45,4],[6414,"GB000708","AZUL",1.45,3],[6413,"GB000734","MORADO",1.45,2],[6412,"GB000707","NEGRO",1.45,2]]},{"n":"MUESTRARIO DE BOLIGRAFOS","c":"Kits y regalos","v":[[6106,"GB000486","ÚNICO",25.14,14]]},{"n":"BOLSO CAMBRELA 1 CON TIRA COSIDO 30X37X10","c":"Bolsos y mochilas","v":[[5880,"GB000260","BEIGE",0.85,12]]},{"n":"TOMATODO METALICO DIARIO","c":"Termos, vasos y tomatodos","v":[[6225,"GB000605","ÚNICO",4.18,12]]},{"n":"CUADERNO ECOLOGICO NOVA 1 LINEA","c":"Libretas y cuadernos","v":[[5947,"GB000327","NARANJA",2.34,11]]},{"n":"CARGADOR INALAMBRICO 3 EN","c":"Tecnología","v":[[6677,"GB000904","ÚNICO",15.26,11]]},{"n":"BOLIGRAFO GOLDEN","c":"Bolígrafos","v":[[6441,"GB000795","VERDE",0.26,10]]},{"n":"GLOBO METALIZADO GIRL","c":"Kits y regalos","v":[[6004,"GB000384","ÚNICO",3.26,10]]},{"n":"TARJETA NINJA","c":"Llaveros y herramientas","v":[[6187,"GB000567","ÚNICO",1.1,9]]},{"n":"TERMO TIPO OWALA CON BASE RUBBER","c":"Termos, vasos y tomatodos","v":[[6676,"GB000903","NEGRO GRIS",13.36,9]]},{"n":"GLOBO METALIZADO BOY","c":"Kits y regalos","v":[[6002,"GB000382","ÚNICO",3.26,8]]},{"n":"GAFAS DE BIOSEGURIDAD","c":"Hogar y bienestar","v":[[5999,"GB000379","ÚNICO",3.46,7]]},{"n":"TAZA","c":"Termos, vasos y tomatodos","v":[[6188,"GB000568","ÚNICO",0.94,7]]},{"n":"BOLSO DE LIENZO CRUDO SUBLIMABLE CON TIRAS 30X37","c":"Bolsos y mochilas","v":[[5894,"GB000274","ÚNICO",1.56,6]]},{"n":"SET DE HERRAMIENTAS CON LUZ TODO","c":"Llaveros y herramientas","v":[[6169,"GB000549","ÚNICO",7.49,6]]},{"n":"BOLSO DE LIENZO Y YUTE 16*22*10 CM","c":"Bolsos y mochilas","v":[[6393,"GB000666","ÚNICO",2.89,5]]},{"n":"KIT ASADO EXPRESS","c":"Hogar y bienestar","v":[[6481,"GB000737","ÚNICO",8.22,5]]},{"n":"BLOCK DE NOTAS CON POTS IT","c":"Oficina","v":[[6409,"GB000705","NATURAL",1.0,2],[6410,"GB000706","NEGRO",0.94,2]]},{"n":"VASO TERMICO TIPO STANLEY 1200 ML","c":"Termos, vasos y tomatodos","v":[[6383,"GB000681","ÚNICO",10.94,4]]},{"n":"TOMATODO METALICO YOGA","c":"Termos, vasos y tomatodos","v":[[6231,"GB000611","ÚNICO",4.14,4]]},{"n":"BOLIGRAFO TWIST TOUCH","c":"Bolígrafos","v":[[5866,"GB000246","PLATEADO",0.48,2],[5862,"GB000242","ROJO",0.48,1]]},{"n":"LONCHERA TERMICA TIPO RECTA","c":"Bolsos y mochilas","v":[[6397,"GB000693","NEGRO",3.93,3]]},{"n":"KIT TECNOLOGICO","c":"Kits y regalos","v":[[6711,"GB000909","ÚNICO",12.66,3]]},{"n":"BOLIGRAFO FANTASY","c":"Bolígrafos","v":[[5716,"GB000096","ROJO",0.21,2]]},{"n":"LAPIZ GLOBAL CON BORRADOR","c":"Bolígrafos","v":[[6020,"GB000400","NEGRO NEGRO",0.13,2],[6019,"GB000399","BLANCO BLANCO",0.14,0]]},{"n":"CUADERNO EJECUTIVO LEXUS","c":"Libretas y cuadernos","v":[[6620,"GB000855","ÚNICO",3.56,2]]},{"n":"BOLIGRAFO NEON XP","c":"Bolígrafos","v":[[5776,"GB000156","TURQUESA",0.17,1]]},{"n":"BOLSO DE LIENZO 35*45 CM","c":"Bolsos y mochilas","v":[[6392,"GB000665","ÚNICO",1.98,1]]},{"n":"LLAVERO CON DESTORNILLADORES PLAIN","c":"Llaveros y herramientas","v":[[6080,"GB000460","BLANCO ROJO",0.79,1]]},{"n":"SET DE ESCRITORIO ECOLOGICO MODERNO","c":"Oficina","v":[[6167,"GB000547","ÚNICO",4.22,1]]},{"n":"VASO ECOLOGICO DE AVENA 350 ml","c":"Termos, vasos y tomatodos","v":[[6250,"GB000630","ÚNICO",1.44,1]]},{"n":"SET ECO LUNCH BOX","c":"Hogar y bienestar","v":[[6172,"GB000552","ÚNICO",5.53,0]]},{"n":"KIT EXECUTIVE","c":"Kits y regalos","v":[[6707,"GB000906","ÚNICO",19.11,0]]},{"n":"KIT CAFE","c":"Kits y regalos","v":[[6709,"GB000908","ÚNICO",4.4,0]]},{"n":"ESTUCHE CON BOLIGRAFO METALICO","c":"Bolígrafos","v":[[6763,"GB000941","PLATEADA",2.0,0],[6764,"GB000942","GRIS",2.0,0]]}];
+const PL = {"6535":[1,51.6,46.1,20.6,12.6,0,1],"6533":[1,51.6,46.1,20.6,12.6,0,1],"6534":[1,51.6,46.1,20.6,12.6,0,1],"6488":[1,40.6,46.9,14.5,8.9,0,1],"6532":[1,52.3,45.3,27.4,16.8,0,1],"6489":[1,49.2,50,36.9,7.8,-90,1],"6106":[1,50,64.1,19.8,12.1,0,1],"5717":[1,43,57.8,25.1,4.6,-20,0],"5648":[1,53.9,31.3,28.6,5.2,-73,0],"5650":[1,48.4,61.7,19.7,3.6,-76,0],"5651":[1,51.6,38.3,25.1,4.6,-74,1],"5652":[1,49.2,49.2,23.3,4.2,-74,1],"5653":[1,49.2,48.4,21.5,3.9,-74,0],"6529":[1,53.1,42.2,28.6,5.2,-74,0],"6530":[1,50.8,40.6,30.4,5.5,-75,0],"6531":[1,51.6,39.8,28.6,5.2,-75,0],"6499":[1,52.3,46.9,25.1,4.6,-73,0],"6501":[1,56.3,34.4,26.9,4.9,-73,0],"6500":[1,56.3,34.4,26.9,4.9,-73,0],"5700":[1,29.7,27.3,22.6,13.9,0,0],"5705":[1,53.1,39.8,28.6,5.2,-68,0],"5709":[1,53.1,39.8,28.6,5.2,-68,0],"5772":[1,53.9,48.4,34,6.2,-74,0],"5753":[0,59.4,21.9,25.1,4.6,-73,1],"5754":[1,55.5,37.5,25.1,4.6,-73,1],"5755":[0,60.9,19.5,25.1,4.6,-73,1],"5757":[0,43.8,67.2,21.5,3.9,-71,0],"5759":[1,52.3,37.5,26.9,4.9,-73,1],"5760":[1,52.3,36.7,28.6,5.2,-73,1],"5761":[0,57.8,11.7,16.1,2.9,-73,0],"5762":[0,50.8,48.4,10.7,2,-74,0],"5764":[1,52.3,39.8,21.5,3.9,-69,1],"5770":[1,49.2,48.4,23.3,4.2,-74,1],"5771":[1,49.2,47.7,23.3,4.2,-74,1],"6510":[1,54.7,40.6,25.1,4.6,-72,1],"6509":[1,54.7,40.6,25.1,4.6,-72,1],"6512":[1,54.7,40.6,25.1,4.6,-72,1],"6513":[1,54.7,40.6,25.1,4.6,-72,1],"6511":[1,54.7,40.6,25.1,4.6,-72,1],"6517":[1,54.7,42.2,25.1,4.6,-72,1],"6518":[0,53.1,52.3,10.7,2,-71,0],"6520":[0,54.7,39.8,25.1,4.6,-72,1],"6519":[1,54.7,42.2,25.1,4.6,-72,1],"6514":[1,49.2,48.4,23.3,4.2,-74,1],"6515":[1,51.6,39.8,23.3,4.2,-74,1],"6516":[1,49.2,48.4,23.3,4.2,-74,1],"6506":[0,44.5,58.6,21.5,3.9,-71,1],"6507":[0,45.3,59.4,23.3,4.2,-71,1],"5644":[0,51.6,40.6,26.9,4.9,-74,1],"5645":[1,51.6,39.1,28.6,5.2,-74,0],"6502":[0,50,35.2,14.3,2.6,-74,1],"5656":[0,50,35.2,14.3,2.6,-74,1],"6503":[0,55.5,17.2,14.3,2.6,-74,0],"5659":[1,52.3,37.5,32.2,5.9,-74,1],"5660":[1,52.3,36.7,34,6.2,-74,1],"5661":[1,46.1,57.8,28.6,5.2,-74,0],"5671":[1,51.6,41.4,26.9,4.9,-74,0],"5672":[0,44.5,64.1,21.5,3.9,-74,1],"5675":[1,49.2,50,25.1,4.6,-74,0],"5676":[0,44.5,64.8,23.3,4.2,-75,0],"5677":[1,51.6,41.4,26.9,4.9,-74,0],"5678":[1,51.6,38.3,32.2,5.9,-75,0],"5680":[0,57.8,15.6,5.4,1,-68,0],"5681":[1,50.8,39.8,30.4,5.5,-75,0],"5684":[1,52.3,36.7,30.4,5.5,-74,0],"5687":[1,50.8,39.8,34,6.2,-74,0],"5688":[1,51.6,39.8,30.4,5.5,-73,1],"5689":[0,41.4,75.8,21.5,3.9,-70,0],"5691":[1,51.6,39.8,30.4,5.5,-73,1],"5692":[1,50.8,40.6,32.2,5.9,-74,0],"5693":[0,50.8,41.4,30.4,5.5,-74,1],"5694":[1,50.8,41.4,30.4,5.5,-74,1],"5695":[1,50.8,40.6,32.2,5.9,-74,0],"5699":[1,54.7,29.7,32.2,5.9,-72,0],"5702":[1,55.5,28.9,34,6.2,-72,0],"5703":[1,54.7,28.1,30.4,5.5,-72,0],"6492":[1,55.5,38.3,26.9,4.9,-72,1],"5716":[1,53.9,34.4,28.6,5.2,-72,1],"5719":[1,51.6,39.8,26.9,4.9,-74,1],"5722":[1,51.6,40.6,26.9,4.9,-74,0],"5723":[1,49.2,48.4,23.3,4.2,-74,1],"5724":[1,51.6,39.8,26.9,4.9,-74,1],"5726":[1,51.6,40.6,26.9,4.9,-74,0],"5727":[1,51.6,39.8,28.6,5.2,-74,1],"5729":[0,46.1,59.4,25.1,4.6,-75,0],"6441":[1,51.6,39.8,23.3,4.2,-74,1],"5749":[1,60.2,63.3,30.4,5.5,-70,1],"5750":[0,60.9,62.5,32.2,5.9,-70,1],"5751":[1,55.5,76.6,32.2,5.9,-68,0],"5752":[1,60.2,63.3,30.4,5.5,-70,1],"5776":[1,53.9,30.5,28.6,5.2,-75,0],"5779":[1,52.3,39.1,32.2,5.9,-70,1],"5780":[0,33.6,88.3,10.7,2,-68,0],"5781":[1,52.3,39.1,32.2,5.9,-70,0],"6498":[1,52.3,39.8,30.4,5.5,-70,0],"5782":[1,52.3,39.1,32.2,5.9,-70,1],"5783":[1,54.7,39.8,30.4,5.5,-74,1],"5784":[1,52.3,39.1,32.2,5.9,-70,0],"5785":[1,54.7,39.8,30.4,5.5,-74,1],"5793":[1,52.3,36.7,28.6,5.2,-74,0],"5799":[1,53.1,37.5,26.9,4.9,-73,1],"5802":[1,53.9,33.6,28.6,5.2,-73,1],"5806":[1,53.9,32.8,30.4,5.5,-73,0],"5815":[1,52.3,34.4,30.4,5.5,-73,0],"5817":[1,52.3,35.2,23.3,4.2,-73,0],"5819":[0,51.6,36.7,25.1,4.6,-74,0],"6504":[1,54.7,35.9,25.1,4.6,-73,1],"5823":[1,54.7,35.9,25.1,4.6,-73,1],"5826":[1,54.7,35.9,23.3,4.2,-73,1],"5827":[1,53.9,34.4,19.7,3.6,-74,0],"5828":[1,54.7,34.4,25.1,4.6,-74,1],"6505":[1,54.7,34.4,25.1,4.6,-73,1],"5846":[0,45.3,60.9,28.6,5.2,-73,0],"5848":[0,45.3,60.9,30.4,5.5,-73,0],"5850":[0,45.3,60.9,28.6,5.2,-73,1],"5838":[1,46.1,58.6,26.9,4.9,-74,0],"5839":[1,46.1,58.6,26.9,4.9,-75,1],"5841":[1,46.1,58.6,26.9,4.9,-75,0],"5842":[1,46.1,59.4,26.9,4.9,-75,1],"5843":[1,46.1,58.6,26.9,4.9,-74,1],"5844":[1,50.8,38.3,23.3,4.2,-74,0],"5845":[1,46.1,58.6,26.9,4.9,-75,1],"5856":[0,43.8,66.4,28.6,5.2,-75,1],"5866":[1,53.9,26.6,28.6,5.2,-75,0],"5862":[1,50.8,41.4,28.6,5.2,-75,1],"5871":[1,52.3,33.6,28.6,5.2,-74,0],"5872":[1,53.1,32.8,30.4,5.5,-74,0],"6527":[1,56.3,35.9,26.9,4.9,-72,1],"6526":[1,53.1,46.9,25.1,4.6,-72,1],"6525":[1,56.3,35.9,26.9,4.9,-72,1],"5975":[1,47.7,50.8,37,14.3,-90,0],"6019":[0,60.2,13.3,2.8,1.7,0,0],"6020":[0,49.2,48.4,14.3,2.6,-73,1],"5796":[1,50.8,44.5,23.3,4.2,-73,0],"5797":[1,50.8,42.2,30.4,5.5,-73,1],"6392":[1,50,60.2,26.6,16.3,0,0],"6393":[1,50,59.4,19.4,11.9,0,0],"6394":[1,41.4,63.3,24.2,14.8,0,1],"6395":[1,41.4,57.8,26.6,16.3,0,1],"6397":[1,35.2,67.2,23,14.1,0,1],"6543":[1,49.2,57,26.6,16.3,0,1],"5877":[1,49.2,59.4,29.1,17.8,0,1],"5878":[1,49.2,59.4,27.9,17.1,0,1],"5880":[1,50,57,26.6,16.3,0,0],"5881":[1,50,57.8,26.6,16.3,0,0],"5885":[1,50.8,61.7,20.6,12.6,0,0],"5889":[1,49.2,57,26.6,16.3,0,1],"6606":[1,50,53.9,30.7,18.8,0,0],"6601":[1,50,54.7,31.5,19.3,0,1],"6607":[1,50,54.7,33.9,20.8,0,1],"6603":[1,59.4,60.2,14.9,9.2,0,0],"6605":[1,50,53.9,31.5,19.3,0,0],"6611":[1,50,54.7,34.3,21,0,0],"6602":[1,50,54.7,31.5,19.3,0,1],"6608":[1,50,54.7,34.3,21,0,1],"6604":[1,50,53.9,30.7,18.8,0,1],"6609":[1,50,54.7,34.3,21,0,1],"6610":[1,50,54.7,33.9,20.8,0,1],"6612":[1,50,54.7,34.3,21,0,0],"5891":[1,49.2,57,26.6,16.3,0,1],"5893":[1,49.2,59.4,29.1,17.8,0,1],"6655":[1,50,57,29.1,17.8,0,1],"6658":[1,53.1,62.5,20.6,12.6,0,0],"6662":[1,50,57,29.1,17.8,0,1],"6661":[1,50,57,29.1,17.8,0,1],"6659":[1,50,57,29.1,17.8,0,0],"6656":[1,50,57,29.1,17.8,0,1],"6657":[1,50,57,29.1,17.8,0,1],"6660":[1,50,57,29.1,17.8,0,0],"5894":[1,54.7,58.6,17.4,10.6,0,0],"5895":[1,50,60.9,24.2,14.8,0,0],"6183":[1,50,51.6,23.4,14.3,0,0],"6355":[0,56.3,57,7.6,2.6,88,0],"6092":[1,50,51.6,20.6,12.6,0,1],"6093":[0,50.8,60.9,7.3,4.5,0,0],"6094":[1,50,51.6,20.6,12.6,0,1],"6095":[1,50,51.6,21.4,13.1,0,0],"6096":[1,50,51.6,20.6,12.6,0,1],"6097":[1,50,51.6,20.6,12.6,0,1],"6098":[1,50,51.6,20.6,12.6,0,1],"6099":[1,50,51.6,20.6,12.6,0,1],"6100":[0,50,53.1,6.9,4.2,0,0],"5918":[1,50.8,47.7,29.5,18.1,0,1],"6477":[1,46.9,50.8,44,27,0,1],"5923":[1,51.6,54.7,24.6,15.1,0,1],"5924":[1,51.6,55.5,29.9,18.3,0,1],"6548":[1,54.7,50,18.6,11.4,0,0],"6547":[1,53.1,49.2,16.5,10.1,0,0],"5987":[1,49.2,57,30.3,18.6,0,0],"5988":[1,49.2,56.3,27.9,17.1,0,0],"5989":[1,49.2,55.5,23.8,14.6,0,0],"6401":[1,46.1,50,33.5,20.5,0,1],"6404":[1,45.3,51.6,33.5,20.5,0,0],"6402":[1,42.2,48.4,21.8,13.4,0,0],"6407":[1,45.3,51.6,33.5,20.5,0,0],"6405":[1,45.3,51.6,33.5,20.5,0,0],"6403":[1,45.3,49.2,33.1,20.3,0,1],"6406":[1,45.3,51.6,33.5,20.5,0,0],"6408":[1,45.3,51.6,33.5,20.5,0,0],"6005":[1,44.5,49.2,30.7,18.8,0,0],"6006":[1,44.5,49.2,30.7,18.8,0,0],"6398":[1,50,66.4,33.5,20.5,0,1],"6399":[1,50,66.4,33.5,20.5,0,0],"5961":[0,76.6,22.7,9.3,5.7,0,0],"5962":[1,22.7,48.4,37.1,6.8,-90,1],"5977":[1,50,44.5,46.4,13,90,1],"5978":[0,57,31.3,48.8,11.4,90,0],"6481":[1,37.5,63.3,23,14.1,0,1],"6159":[1,31.3,49.2,23.4,14.3,0,0],"6172":[0,37.5,46.9,44.4,13,4,0],"6480":[1,50,49.2,32.7,20,0,0],"5931":[1,49.2,60.9,13.7,8.4,0,1],"5932":[1,56.3,60.9,13.7,8.4,0,1],"5964":[0,34.4,38.3,2.4,1.5,0,0],"5966":[1,50.8,60.2,15.3,9.4,0,0],"5999":[1,46.1,56.3,12.5,7.7,0,0],"6483":[1,55.5,61.7,29.9,18.3,0,0],"6116":[1,50.8,52.3,39.1,11.4,89,1],"6650":[1,50,48.4,21.8,13.4,0,0],"6649":[1,50,52.3,26.6,16.3,0,0],"6647":[1,43,58.6,29.1,17.8,0,0],"6124":[1,39.8,50.8,46.8,28.7,0,1],"6147":[1,55.5,49.2,46,8.5,43,1],"6148":[1,66.4,63.3,24.9,7.5,45,0],"6149":[1,55.5,49.2,46,8.5,43,1],"6171":[1,50.8,51.6,57.7,35.4,0,1],"6195":[1,75.8,51.6,29.1,17.8,0,0],"6268":[1,50.8,50,25.4,15.6,0,0],"5974":[1,48.4,53.9,24.2,14.8,0,0],"6134":[1,50.8,49.2,23,14.1,0,1],"6135":[1,51.6,52.3,20.6,12.6,0,0],"6136":[1,50.8,49.2,23,14.1,0,1],"5956":[1,49.2,50,32.7,20,0,1],"5957":[1,49.2,49.2,33.5,20.5,0,1],"5958":[1,49.2,49.2,34.3,21,0,0],"6618":[1,50.8,49.2,36.3,22.3,0,0],"6619":[1,50.8,49.2,35.5,21.8,0,0],"5943":[1,48.4,49.2,31.5,19.3,0,0],"6424":[1,50.8,46.9,22.2,13.6,0,1],"5945":[1,50,50,35.1,21.5,0,0],"6634":[1,50,49.2,39.2,24,0,0],"6638":[1,50,49.2,36.7,22.5,0,0],"6637":[1,50.8,49.2,37.5,23,0,0],"6636":[1,50.8,49.2,36.7,22.5,0,0],"6455":[1,50.8,48.4,32.7,20,0,0],"6458":[1,50.8,48.4,32.7,20,0,0],"6456":[1,50.8,48.4,32.7,20,0,0],"6457":[1,50.8,48.4,32.7,20,0,0],"5947":[1,50.8,50,43.6,26.7,0,0],"6629":[1,50,49.2,27.9,17.1,0,0],"6630":[1,49.2,49.2,29.1,17.8,0,1],"6633":[1,49.2,49.2,30.3,18.6,0,0],"6631":[1,49.2,49.2,29.1,17.8,0,1],"6632":[1,50,49.2,29.1,17.8,0,1],"6021":[1,51.6,50,30.3,18.6,0,0],"6022":[1,48.4,49.2,25.4,15.6,0,0],"6429":[1,52.3,50,32.7,20,0,0],"6426":[1,52.3,50,32.7,20,0,0],"6438":[1,52.3,50,32.7,20,0,0],"6425":[1,51.6,50,32.7,20,0,0],"6427":[1,52.3,50,32.7,20,0,0],"6428":[1,52.3,50,32.7,20,0,0],"6430":[1,50,50,25.4,15.6,0,1],"6432":[1,50,50.8,36.3,22.3,0,0],"6024":[1,50,50,25.4,15.6,0,1],"6433":[1,50,50,25.4,15.6,0,1],"6419":[1,51.6,50,32.7,20,0,0],"6615":[1,51.6,49.2,32.7,20,0,1],"6620":[1,49.2,49.2,33.9,20.8,0,1],"6614":[1,57,65.6,17.8,10.9,0,1],"6640":[1,46.1,49.2,34.3,21,0,1],"6641":[1,46.9,48.4,35.5,21.8,0,0],"6639":[1,46.1,49.2,34.3,21,0,1],"6416":[1,49.2,49.2,32.7,20,0,1],"6418":[1,48.4,49.2,29.1,17.8,0,1],"6617":[1,48.4,49.2,29.1,17.8,0,1],"6417":[1,48.4,49.2,29.1,17.8,0,1],"6616":[1,48.4,49.2,32.7,20,0,1],"6415":[1,49.2,49.2,32.7,20,0,1],"5954":[1,50,49.2,32.7,20,0,0],"5955":[1,49.2,49.2,32.7,20,0,1],"6579":[1,49.2,49.2,36.3,22.3,0,0],"6421":[1,48.4,50.8,25.4,15.6,0,1],"6420":[1,48.4,50.8,25,15.3,0,1],"6414":[1,49.2,49.2,27.9,17.1,0,1],"6031":[1,49.2,50,26.6,16.3,0,0],"6413":[1,49.2,49.2,27.9,17.1,0,1],"6412":[1,49.2,49.2,27.9,17.1,0,1],"6033":[1,49.2,49.2,27.9,17.1,0,1],"6590":[1,49.2,49.2,26.6,16.3,0,1],"6484":[0,50,62.5,49.8,21.8,-90,1],"6110":[1,50,51.6,37.6,6.8,-77,0],"6169":[1,49.2,49.2,77.5,47.5,0,1],"6170":[1,41.4,60.9,23,14.1,0,1],"6187":[1,48.4,58.6,32.3,19.8,0,1],"6036":[1,35.2,63.3,53.3,9.8,-51,1],"6064":[1,53.9,50.8,26.9,4.9,30,0],"6080":[1,39.8,66.4,19.9,7.2,-1,1],"6050":[1,55.5,47.7,17,10.4,0,1],"6051":[1,55.5,47.7,17,10.4,0,1],"6059":[0,15.6,51.6,77,14,-1,0],"6040":[0,49.2,57.8,25.6,8.5,87,0],"6654":[1,27.3,39.1,29.9,18.3,0,0],"6653":[1,27.3,39.1,29.9,18.3,0,0],"6071":[0,49.2,53.1,27.7,11.7,90,0],"6497":[0,50.8,57.8,10.9,6.7,0,0],"6496":[1,50.8,57.8,18.6,11.4,0,1],"6485":[1,20.3,54.7,23.4,14.3,0,0],"6486":[1,21.1,53.9,22.6,13.9,0,0],"6045":[1,19.5,51.6,23.8,14.6,0,0],"6046":[1,14.8,54.7,21,12.9,0,1],"6047":[1,21.9,52.3,22.2,13.6,0,0],"6044":[1,20.3,52.3,23,14.1,0,1],"6646":[1,18,43.8,19.4,11.9,0,0],"6645":[1,19.5,51.6,23.8,14.6,0,0],"6062":[1,32,51.6,34.3,21,0,1],"6063":[1,32,51.6,34.3,21,0,1],"5917":[1,50,50,37.9,15.6,-90,0],"6016":[1,59.4,50.8,30.6,10.1,-89,0],"6111":[1,32.8,46.9,29.1,17.8,0,0],"5928":[1,51.6,47.7,27.9,17.1,0,0],"6164":[1,46.9,46.1,43.6,26.7,0,1],"6156":[1,45.3,49.2,42.4,26,0,1],"6437":[1,34.4,25.8,26.6,16.3,0,1],"6436":[1,34.4,25.8,26.6,16.3,0,1],"5927":[1,46.9,48.4,18.2,11.1,0,0],"5963":[1,54.7,61.7,20.6,12.6,0,0],"6011":[1,51.6,53.1,31.5,19.3,0,0],"6104":[0,22.7,70.3,17.9,3.3,-1,0],"6495":[1,48.4,55.5,29.9,18.3,0,1],"6130":[0,37.5,80.5,19.7,3.6,86,1],"6145":[1,46.9,75.8,20.2,12.4,0,0],"6154":[1,39.1,45.3,19,11.6,0,0],"6162":[1,50.8,51.6,21.4,13.1,0,1],"6648":[0,50,65.6,9.7,5.9,0,0],"6302":[1,48.4,47.7,39.1,9.8,-61,1],"6409":[1,56.3,45.3,14.5,8.9,0,0],"6410":[1,57,45.3,14.5,8.9,0,0],"6487":[1,50,68,20.6,12.6,0,0],"6411":[1,70.3,50,51.8,18.6,90,0],"6626":[1,46.9,49.2,23.8,14.6,0,0],"6627":[1,46.9,49.2,24.6,15.1,0,1],"6152":[1,70.3,50.8,50.1,17.9,-90,0],"6167":[1,50,46.1,23.8,14.6,0,0],"6173":[1,54.7,49.2,20.6,12.6,0,0],"6643":[1,57.8,56.3,23.8,14.6,0,0],"5940":[1,43,60.2,35.8,6.5,-80,1],"5941":[1,43,60.2,34,6.2,-80,1],"5942":[1,43.8,54.7,37.6,6.8,-80,1],"6434":[1,50,50,52.1,31.9,0,0],"6621":[1,47.7,53.9,27.9,17.1,0,1],"6622":[1,47.7,53.9,25.4,15.6,0,1],"6435":[1,47.7,53.9,26.6,16.3,0,1],"6623":[1,47.7,53.9,26.6,16.3,0,1],"6624":[1,47.7,53.9,26.6,16.3,0,1],"6138":[1,49.2,47.7,44.3,15.6,27,1],"6140":[0,60.2,51.6,39.1,13.3,15,1],"6143":[0,25,56.3,7.7,4.7,0,0],"6178":[1,50,43.8,23,14.1,0,1],"6267":[1,48.4,47.7,27.4,16.8,0,1],"6000":[1,21.9,52.3,33.5,20.5,0,1],"6089":[1,54.7,52.3,31.5,19.3,0,1],"5623":[0,46.9,69.5,28.6,5.2,83,0],"5624":[1,45.3,67.2,25.1,4.6,83,0],"6117":[1,69.5,32.8,14.5,8.9,0,0],"6118":[1,32,49.2,32.7,20,0,0],"6165":[1,50,53.9,37.3,15.6,90,0],"6166":[1,50,53.9,37.2,15.6,89,0],"5984":[1,49.2,50,30.3,18.6,0,1],"5985":[1,47.7,52.3,28.7,17.6,0,0],"5986":[1,49.2,50,30.3,18.6,0,0],"6266":[1,53.1,64.1,19.8,12.1,0,1],"6242":[1,50,46.1,20.6,12.6,0,0],"5904":[1,50,50,27.9,17.1,0,0],"6246":[1,49.2,49.2,21.8,13.4,0,0],"6250":[1,48.4,49.2,37.8,13.7,-88,0],"6012":[1,53.1,48.4,23,14.1,0,1],"6391":[1,54.7,49.2,23,14.1,0,1],"6383":[1,52.3,57,17,10.4,0,1],"6385":[1,50,49.2,25,15.3,0,1],"6384":[1,50,49.2,25,15.3,0,1],"6387":[1,50,50,26.2,16.1,0,1],"6375":[1,50.8,47.7,37.5,17.3,-90,1],"6377":[1,50,47.7,37.5,16.6,90,1],"6378":[1,47.7,43.8,39,13.3,-88,0],"6587":[1,50,53.1,38.4,17.6,-87,1],"6586":[1,50,53.1,38.5,17.6,-87,1],"6588":[0,43,39.8,41.9,9.8,-81,0],"6589":[1,50,53.1,38.4,17.6,-87,1],"6374":[1,50,47.7,37.5,16.6,90,1],"6379":[1,50.8,47.7,37.5,17.6,-90,1],"6188":[1,53.9,49.2,26.6,16.3,0,0],"6382":[1,47.7,44.5,57.7,14,-84,1],"6388":[1,50,48.4,46.7,15.6,-89,1],"6370":[1,49.2,52.3,44.1,8.8,90,0],"6368":[1,50,51.6,42.3,13.7,90,1],"6371":[1,49.2,51.6,42.4,13.7,90,1],"6225":[0,49.2,21.9,10.5,6.4,0,1],"6642":[1,50,50,43.8,12.7,88,1],"6568":[0,49.2,24.2,43,7.8,89,1],"6228":[0,46.9,22.7,3.2,2,0,1],"6230":[1,50,52.3,39,12.7,89,0],"6231":[1,50,51.6,32.2,5.9,-90,0],"6651":[1,50,50,38.7,13,-90,0],"6652":[1,50,49.2,38.7,13,-90,0],"5906":[1,50,50,38.5,12.7,-90,0],"5907":[1,50,50,38.8,12.7,90,0],"6192":[1,49.2,53.1,44.4,12.7,89,1],"6211":[1,50,53.1,35.1,12,-90,0],"6212":[1,49.2,51.6,37.7,11.7,90,1],"6214":[1,50,50,37.7,10.7,-90,0],"6217":[1,50,53.1,35.1,12,-89,0],"6218":[1,50,51.6,38,11.7,90,1],"6220":[1,49.2,53.1,35.2,12.7,-90,1],"6357":[1,50,52.3,34.9,12.7,-90,1],"6301":[1,50,52.3,34.9,12.7,-90,1],"6222":[1,52.3,47.7,34,6.2,83,0],"6223":[1,50,53.1,34.9,12,-89,0],"6243":[1,49.2,47.7,19.4,11.9,0,1],"6245":[1,49.2,47.7,35.8,15.6,89,1],"6253":[1,49.2,55.5,33.5,14.6,89,0],"6197":[1,49.2,50.8,38.5,12.7,90,1],"6198":[1,49.2,43,14.1,8.7,0,0],"6202":[1,50,47.7,36,11.1,90,1],"6203":[1,50,49.2,35.8,10.4,90,0],"6205":[1,50,47.7,35.9,11.1,90,1],"6206":[1,50,50,35.8,11.4,89,1],"6528":[1,52.3,51.6,41.3,15.6,84,1],"5905":[1,46.9,50.8,40.8,12.7,-89,0],"6256":[1,45.3,57,36.8,12.7,86,1],"6002":[1,49.2,49.2,77.5,47.5,0,1],"6004":[1,49.2,49.2,77.5,47.5,0,1],"6101":[1,50.8,52.3,15.7,9.6,0,0],"6102":[1,50,50,25.4,15.6,0,0],"5959":[1,54.7,30.5,13.3,8.2,0,0],"6674":[1,50,54.7,24.9,7.8,-89,0],"6675":[1,50,51.6,42.4,13.7,90,1],"6676":[1,50,50.8,47.5,14.6,-89,1],"6677":[1,39.1,55.5,20.2,12.4,0,1],"6695":[1,51.6,50,32.7,20,0,0],"6706":[1,73.4,57,30.3,18.6,0,1],"6707":[1,62.5,59.4,46.4,28.5,0,1],"6709":[1,65.6,64.8,40.4,24.7,0,0],"6711":[1,30.5,33.6,37.1,22.8,0,1],"6712":[1,54.7,30.5,12.9,7.9,0,0],"6723":[1,48.4,52.3,39.3,12,87,0],"6732":[0,44.5,64.8,23.3,4.2,-74,1],"6733":[1,52.3,39.1,32.2,5.9,-70,1],"6734":[1,49.2,47.7,23.3,4.2,-74,1],"6735":[1,49.2,47.7,23.3,4.2,-74,1],"6736":[0,35.9,83.6,12.5,2.3,-69,0],"6737":[0,37.5,78.1,16.1,2.9,-69,0],"6738":[1,64.8,39.8,30.4,5.5,-70,1],"6739":[1,64.8,40.6,28.6,5.2,-70,1],"6740":[0,51.6,71.1,10.7,2,-71,0],"6741":[1,50,45.3,28.6,5.2,-73,0],"6742":[0,43,77.3,23.3,4.2,-74,0],"6743":[0,43,77.3,23.3,4.2,-74,0],"6744":[0,42.2,76.6,23.3,4.2,-72,0],"6745":[0,40.6,69.5,23.3,4.2,-72,1],"6746":[0,40.6,69.5,23.3,4.2,-72,1],"6747":[1,50.8,41.4,30.4,5.5,-71,1],"6748":[1,50.8,41.4,30.4,5.5,-71,1],"6749":[1,53.1,39.8,28.6,5.2,-68,0],"6750":[1,53.9,39.8,30.4,5.5,-68,0],"6751":[1,53.1,39.8,28.6,5.2,-68,0],"6753":[1,46.9,49.2,41.8,12.7,90,0],"6754":[1,46.9,49.2,41.8,12.7,90,0],"6755":[1,46.9,49.2,41.9,12.7,90,0],"6758":[1,46.1,66.4,36.7,22.5,0,1],"6762":[0,45.3,43.8,30,8.8,-8,0],"6763":[1,43.8,52.3,17.8,10.9,0,1],"6764":[1,46.1,67.2,20.6,12.6,0,1],"6765":[0,52.3,53.1,2.4,1.5,0,0]};  // ubicación del logo por foto: [modo(1 sobre producto / 0 al costado), x%, y%, ancho%, alto%, ángulo, fondo oscuro]
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
+const money=n=>"$"+(Math.round(n*100)/100).toFixed(2);
+const fmt=n=>n.toLocaleString("es-EC");
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* Nombres legibles */
+const ACC={BOLIGRAFO:"Bolígrafo",BOLIGRAFOS:"Bolígrafos",ECOLOGICA:"Ecológica",ECOLOGICO:"Ecológico",ECOLOGICOS:"Ecológicos",METALICA:"Metálica",METALICO:"Metálico",TERMICO:"Térmico",TERMICA:"Térmica",CLASICA:"Clásica",CLASICO:"Clásico",PLASTICO:"Plástico",LAPIZ:"Lápiz",LAPICES:"Lápices",ALGODON:"Algodón",POLIESTER:"Poliéster",CERAMICA:"Cerámica",TECNOLOGICO:"Tecnológico",AUDIFONO:"Audífono",AUDIFONOS:"Audífonos",MAGNETICO:"Magnético",CORDON:"Cordón",BALON:"Balón",FUTBOL:"Fútbol",CAFE:"Café",ELECTRICO:"Eléctrico",ELASTICO:"Elástico",HERMETICO:"Hermético",INALAMBRICO:"Inalámbrico",PENDULO:"Péndulo",TERMOMETRO:"Termómetro",LINEA:"Línea",BAÑO:"Baño",PEQUEÑA:"Pequeña",CREDENCIAL:"Credencial",ESCRITORIO:"Escritorio",MALETIN:"Maletín",SOLIDO:"Sólido",SOLIDA:"Sólida",TRASLUCIDO:"Traslúcido",ESPIRAL:"Espiral",UNICO:"Único"};
+const KEEP=/^(ML|CM|RPET|PVC|UV|XP|JR|MR\.|II|3|1|2)$/;
+function nice(s){return s.split(/(\s+|\/)/).map((w,i)=>{if(!w.trim()||w==="/")return w;const u=w.toUpperCase();if(ACC[u])return ACC[u];if(KEEP.test(u)||/\d/.test(u))return u.replace(/(\d)X(\d)/g,"$1×$2");const t=u.toLowerCase();return (i>0&&["con","de","y","para","tipo","a","en","del"].includes(t))?t:t[0].toUpperCase()+t.slice(1)}).join("").replace(/^./,c=>c.toUpperCase())}
+const SW={AZUL:"#2B5BD7",NEGRO:"#1d1d22",NEGRA:"#1d1d22",ROJO:"#D62828",BLANCO:"#FFFFFF",BLANCA:"#FFFFFF",PLATEADO:"#C4C7CF",PLATEADA:"#C4C7CF",GRIS:"#8A8F99",VERDE:"#2EA44F",NARANJA:"#F7931E",AMARILLO:"#F9D423",FUCSIA:"#E0218A",MORADO:"#6D2DB5",TURQUESA:"#1CC6C6",ROSADO:"#F49AC2",CAKI:"#B5A27A",BEIGE:"#E8D9B5",CELESTE:"#7EC8F2",TRANSPARENTE:"linear-gradient(135deg,#fff 0 45%,#dfe7f3 45% 100%)",KRAFT:"#C29A64",NATURAL:"#E7D8B8"};
+function swatch(c){const p=c.split(/[\s\/]+/).filter(w=>SW[w]);if(!p.length)return "conic-gradient(#F7931E,#3B1670,#F7931E)";if(p.length===1)return SW[p[0]];return `linear-gradient(135deg,${SW[p[0]]} 0 50%,${SW[p[1]].startsWith("linear")?"#dfe7f3":SW[p[1]]} 50% 100%)`}
+const niceColor=c=>c==="ÚNICO"?"Único":nice(c.replace(/ (TRASL|SOL)$/," $1").replace(/ TRASL$/," traslúcido").replace(/ SOL$/," sólido"));
+
+/* Modelo de datos */
+let custom=store.get("ps_custom",[]);
+function build(){
+  const base=DATA.map((m,i)=>({key:"m"+i,name:nice(m.n),cat:m.c,v:m.v.map(v=>({id:v[0],code:v[1],color:v[2],cost:v[3],q:v[4]}))}));
+  const own=custom.map(c=>({key:c.key,name:c.name,cat:c.cat,own:true,img:c.img,v:[{id:0,code:"PS-"+c.key.slice(-4),color:"ÚNICO",cost:c.price/(TRAMOS[0].factor*EXTRA_TOTAL),q:c.q}]}));
+  return [...own,...base].map(m=>{m.q=m.v.reduce((a,v)=>a+v.q,0);m.min=Math.min(...m.v.map(v=>v.cost));m.cover=m.v.find(v=>v.q>0)||m.v[0];return m});
+}
+let ALL=build();
+const CATS=[...new Set(ALL.map(m=>m.cat))].sort((a,b)=>ALL.filter(m=>m.cat===b).length-ALL.filter(m=>m.cat===a).length);
+/* Precio psicológico: menos de $1 termina en 9 (0.39, 0.49); desde $1 termina en .49 o .99, siempre hacia arriba */
+function charm(x){const c=Math.round(x*100);if(c<100){let r=Math.ceil((c+1)/10)*10-1;return r/100}const d=Math.floor(c/100)*100;const opts=[d+49,d+99,d+149];return opts.find(o=>o>=c)/100}
+const tramo=q=>TRAMOS.find(t=>q>=t.desde&&q<=t.hasta)||TRAMOS[0];
+const pub=(c,q=1)=>charm(c*tramo(q).factor*EXTRA_TOTAL), soc=c=>c*MARGEN_SOCIO;
+const tramoLabel=t=>t.hasta===Infinity?`${fmt(t.desde)}+ u.`:`${fmt(t.desde)}–${fmt(t.hasta)} u.`;
+const unitOf=i=>i.cost!=null?pub(i.cost,i.q):i.unit;
+
+/* Imagen con respaldo */
+const PH=`<div class="ph"><svg viewBox="0 0 64 64"><path d="M24 23v-5a8 8 0 0 1 16 0v5" fill="none" stroke="#F7931E" stroke-width="4" stroke-linecap="round"/><path d="M14 23h36l3 33a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#E87A1C" opacity=".85"/><path d="M32 33l3.4 6.9 7.6 1.1-5.5 5.4 1.3 7.5-6.8-3.6-6.8 3.6 1.3-7.5-5.5-5.4 7.6-1.1z" fill="#fff"/></svg></div>`;
+/* Logo Promo Shop para simular el branding. Producto claro: PROMO morado + SHOP naranja. Producto oscuro: PROMO blanco + SHOP naranja. */
+const STAR="M0-7L2.1-2.4 7-2.2 3.3 1 4.5 6 0 3.3-4.5 6-3.3 1-7-2.2-2.1-2.4z";
+function bag(x,y,s){return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M12 14v-4a7 7 0 0 1 14 0v4" fill="none" stroke="#F7931E" stroke-width="3.4" stroke-linecap="round"/><path d="M4 14h30l2.6 27a2.3 2.3 0 0 1-2.3 2.5H3.7A2.3 2.3 0 0 1 1.4 41z" fill="#F07A16"/><path d="${STAR}" transform="translate(19 29) scale(1.25)" fill="#fff"/></g>`}
+let _lg=0;
+function logoSVG(kind,dark,cyl){const P=dark?"#FFFFFF":"#3B1670",S=dark?"#F7931E":"#E2561A",F='font-family="Montserrat,Arial,sans-serif" font-weight="900"';const n=++_lg;
+  /* Efecto impreso: en superficies cilíndricas el logo se desvanece hacia los bordes como si envolviera el producto; brillo suave arriba */
+  const g=cyl==="h"?'x1="0" y1="0" x2="1" y2="0"':'x1="0" y1="0" x2="0" y2="1"';
+  const defs=`<defs><linearGradient id="cg${n}" ${g}><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="1"/></linearGradient><mask id="cm${n}" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#cg${n})"/></mask><linearGradient id="gl${n}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="${dark?.0:.18}"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>`;
+  let body,vb;
+  if(kind==="L"){vb="0 0 442 46";body=`${bag(0,1,1)}<text x="46" y="34" ${F} font-size="28"><tspan fill="${P}">PROMO</tspan><tspan fill="${S}" dx="6">SHOP</tspan></text><rect x="263" y="9" width="2.5" height="28" rx="1" fill="${S}"/><text x="275" y="31" font-family="Montserrat,Arial,sans-serif" font-weight="800" font-size="15.5" letter-spacing="2" fill="${P}">TU MARCA AQUÍ</text>`}else if(kind==="A"||kind==="B"){vb="0 0 262 72";body=`${bag(0,10,1.15)}<text x="52" y="34" ${F} font-size="27"><tspan fill="${P}">PROMO</tspan><tspan fill="${S}" dx="6">SHOP</tspan></text><text x="53" y="61" font-family="Montserrat,Arial,sans-serif" font-weight="800" font-size="16.5" letter-spacing="3.1" fill="${P}" fill-opacity=".85">TU MARCA AQUÍ</text>`}else if(kind==="C"){vb="0 0 64 64";body=`<circle cx="32" cy="32" r="29" fill="none" stroke="${S}" stroke-width="3"/><circle cx="32" cy="32" r="24.5" fill="none" stroke="${S}" stroke-width="1" stroke-dasharray="2 2.5"/>${bag(13,9,1)}`}
+  else if(false){vb="0 0 182 66";body=`${bag(0,8,1.15)}<text x="52" y="33" ${F} font-size="29" fill="${P}">PROMO</text><text x="53" y="61" ${F} font-size="24" letter-spacing="6.5" fill="${S}">SHOP</text>`}
+  return `<svg viewBox="${vb}">${defs}<g mask="url(#cm${n})">${body}</g></svg>`}
+
+let LOGO_MODE="auto"; // auto: A en productos alargados, B en el resto
+function place(id){const p=PL[id];return p&&p.length>=7?p:null}
+const HARD=/DESTAPADOR|LLAVERO|NAVAJA|HERRAMIENTA|LINTERNA|MULTIRUEDA|NINJA|PINZAS/;
+/* Ajustes por tipo de producto según cómo se marca en el mercado */
+function ajuste(n,x,y,w,h,a){n=n.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  if(/GORRA/.test(n))return [53,40,24,24/3.64,-4];            // panel frontal de la gorra
+  if(/CUADERNO|LIBRETA|AGENDA/.test(n)){w=Math.min(w,30);return [x-4,y,w,w/3.64,0]} // portada, sin pisar el elástico
+  return [x,y,w,h,a]}
+function markTag(m,v){const id=(v||m.cover).id;let p=place(id)||place(m.cover.id);if(m.own)p=null;
+  /* Si hay espacio suficiente sobre el producto, se monta el logo; la flecha queda solo para superficies muy pequeñas */
+  if(p&&p[0]!==1&&p[3]>=14&&p[4]>=2.5)p=[1,...p.slice(1)];
+  if(p&&p[0]===1){let [_,x,y,w,h,a,dk]=p;let wide=w/h>2.2;if(wide&&Math.abs(a)>=75&&h>=8){wide=false;a=0;w=h*1.35;h=w/3.64}else if(!wide){const r=Math.min(w/1.55,h/0.95);w=r*(/Termos/.test(m.cat)?1.35:1.7);h=w/3.64;if(Math.abs(a)>=60)a=0}if(wide){const lh=h;w=w*1.15;h=w/9.6;if(h>lh*1.15){h=lh*1.15;w=h*9.6}const sa=Math.sin(a*Math.PI/180),ca=Math.cos(a*Math.PI/180);if(/Bol[ií]grafo|L[aá]piz/i.test(m.name)&&Math.abs(sa)>.3){const k=(48-y)/sa;x+=k*ca;y=48}};[x,y,w,h,a]=ajuste(m.name,x,y,w,h,a);
+    return {inner:`<div class="mark" aria-hidden="true"><span class="logo ${dk?"on-dark":"on-light"}" style="--x:${x}%;--y:${y}%;--w:${w}%;--h:${h}%;--a:${a}deg">${logoSVG(wide?"L":"B",dk,/Bolígrafos|Termos/.test(m.cat)?(wide?"v":"h"):"")}</span></div>`,tag:""}}
+  const x=p?p[1]:50,y=p?p[2]:50,sx=86,sy=106,ex=x+(sx-x)*.12,ey=y+(sy-y)*.12;
+  return {inner:`<div class="mark" aria-hidden="true"><svg class="arr"><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#E2561A"/></marker></defs><line x1="${sx}%" y1="${sy}%" x2="${ex}%" y2="${ey}%" stroke="#E2561A" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#ah)"/></svg></div>`,tag:`<span class="ptag"><svg viewBox="0 0 352 48" aria-hidden="true">${bag(0,1,1)}<text x="46" y="37" font-family="Montserrat,Arial,sans-serif" font-weight="900" font-size="30" textLength="300" lengthAdjust="spacingAndGlyphs"><tspan fill="#fff">TU MARCA</tspan><tspan fill="#F7931E" dx="9">AQUÍ</tspan></text></svg></span>`}}
+function frameTag(m,v){const src=m.own?m.img:IMG((v||m.cover).id);const k=markTag(m,v);return `${PH}<div class="frame"><img src="${esc(src)}" alt="${esc(m.name)}" loading="lazy" onload="var p=this.closest('.pimg').querySelector('.ph');p&&p.remove()" onerror="this.remove()">${k.inner}</div>${k.tag}`}
+function imgTag(m,v){const src=m.own?m.img:IMG((v||m.cover).id);return `${PH}<img src="${esc(src)}" alt="${esc(m.name)}" loading="lazy" onload="this.previousElementSibling&&this.previousElementSibling.remove()" onerror="this.remove()">`}
+$$(".collage .tile").forEach(t=>{t.innerHTML=`${PH}<img src="${IMG(t.dataset.img)}" alt="" onload="this.previousElementSibling&&this.previousElementSibling.remove()" onerror="this.remove()">`});
+
+/* Hero */
+const totalUnits=ALL.reduce((a,m)=>a+m.q,0);
+$("#f-models").textContent=fmt(ALL.length);$("#f-units").textContent=fmt(totalUnits);
+$("#strip-stock").textContent="Stock actualizado al "+STOCK_FECHA;
+$("#updated").textContent="Stock y precios actualizados al "+STOCK_FECHA+". Imágenes referenciales.";
+$("#wa-txt").textContent="+"+WHATSAPP;
+$("#quick").innerHTML=["Termos, vasos y tomatodos","Bolígrafos","Libretas y cuadernos","Bolsos y mochilas","Gorras y sombreros"].map(c=>`<button type="button" data-c="${c}">${c.split(",")[0]}</button>`).join("");
+$("#quick").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;state.cat=b.dataset.c;state.q="";$("#q").value="";render(true);location.hash="productos"});
+$("#hero-search").addEventListener("submit",e=>{e.preventDefault();state.q=$("#hq").value.trim().toLowerCase();$("#q").value=$("#hq").value;state.cat="Todos";render(true);document.getElementById("productos").scrollIntoView()});
+
+/* Catálogo */
+const state={cat:"Todos",q:"",sort:"pop",stock:true,shown:24};
+function catsUI(){
+  const all=["Todos",...CATS];const n=c=>c==="Todos"?ALL.length:ALL.filter(m=>m.cat===c).length;
+  $("#cats").innerHTML=all.map(c=>`<button type="button" aria-pressed="${c===state.cat}" data-c="${esc(c)}">${esc(c)}<span>${n(c)}</span></button>`).join("");
+  $("#cats-m").innerHTML=all.map(c=>`<button type="button" aria-pressed="${c===state.cat}" data-c="${esc(c)}">${esc(c)}</button>`).join("");
+}
+[$("#cats"),$("#cats-m")].forEach(el=>el.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;state.cat=b.dataset.c;render(true)}));
+$("#q").addEventListener("input",e=>{state.q=e.target.value.trim().toLowerCase();render(true)});
+$("#sort").addEventListener("change",e=>{state.sort=e.target.value;render(true)});
+$("#instock").addEventListener("change",e=>{state.stock=e.target.checked;render(true)});
+$("#more").addEventListener("click",()=>{state.shown+=24;render()});
+function stockPill(q){return q<=0?`<span class="stock out">Agotado</span>`:q<50?`<span class="stock low">Últimas ${fmt(q)}</span>`:`<span class="stock">${fmt(q)} disp.</span>`}
+function list(){
+  let l=ALL.filter(m=>(state.cat==="Todos"||m.cat===state.cat)&&(!state.stock||m.q>0)&&(!state.q||(m.name+" "+m.cat+" "+m.v.map(v=>v.code+" "+v.color).join(" ")).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(state.q.normalize("NFD").replace(/[̀-ͯ]/g,""))));
+  const s={pop:(a,b)=>b.q-a.q,asc:(a,b)=>a.min-b.min,desc:(a,b)=>b.min-a.min,az:(a,b)=>a.name.localeCompare(b.name)}[state.sort];
+  return l.sort(s);
+}
+function card(m){
+  const cols=m.v.slice(0,6).map(v=>`<span class="dot" style="background:${swatch(v.color)}" title="${esc(niceColor(v.color))}"></span>`).join("");
+  return `<article class="card" data-k="${m.key}" tabindex="0" aria-label="${esc(m.name)}">
+    <div class="pimg">${frameTag(m)}${stockPill(m.q)}</div>
+    <div class="body"><span class="cat">${esc(m.cat)}</span><h3>${esc(m.name)}</h3>
+      <div class="dots">${cols}${m.v.length>1?`<small>${m.v.length} colores</small>`:""}</div>
+      <div class="foot"><div class="price"><small>1–49 u.</small><b>${money(pub(m.min))}</b><small class="vol">Desde ${money(pub(m.min,1000))} por volumen</small></div><button class="add" type="button" data-add aria-label="Agregar ${esc(m.name)} a la cotización"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+    </div></article>`;
+}
+function render(reset){
+  if(reset)state.shown=24;catsUI();
+  const l=list();
+  $("#grid").innerHTML=l.length?l.slice(0,state.shown).map(card).join(""):`<div class="empty">No encontramos productos con ese filtro. Prueba otra búsqueda o desactiva «Solo con stock».</div>`;
+  $("#count").textContent=`${l.length} productos`;
+  $("#more").hidden=l.length<=state.shown;
+}
+$("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const m=ALL.find(x=>x.key===c.dataset.k);if(e.target.closest("[data-add]")){const v=m.cover;addCart(m,v,Math.min(50,Math.max(1,v.q)));return}openModal(m)});
+$("#grid").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("card"))openModal(ALL.find(x=>x.key===e.target.dataset.k))});
+
+/* Modal */
+const modal=$("#modal");let cur=null,curV=null;
+function openModal(m){cur=m;curV=m.cover;
+  $("#m-cat").textContent=m.cat;$("#m-title").textContent=m.name;
+  $("#m-colors").innerHTML=m.v.map((v,i)=>`<button type="button" class="${v.q<=0?"out":""}" data-i="${i}" aria-pressed="${v===curV}"><span class="dot" style="background:${swatch(v.color)}"></span>${esc(niceColor(v.color))} <small>${v.q>0?fmt(v.q):"agotado"}</small></button>`).join("");
+  $("#m-qty").value=Math.min(50,Math.max(1,curV.q||1));
+  $("#m-share").hidden=!store.get("ps_socio",null);
+  upd();modal.showModal?modal.showModal():modal.setAttribute("open","");
+}
+function upd(){const v=curV;$("#m-img").innerHTML=frameTag(cur,v);$("#m-color").textContent=niceColor(v.color);$("#m-code").textContent="Código "+v.code;
+  $$("#m-colors button").forEach(b=>b.setAttribute("aria-pressed",cur.v[b.dataset.i]===v));
+  const q=Math.max(1,parseInt($("#m-qty").value)||1);const u=pub(v.cost,q);const ct=tramo(q);
+  $("#m-tramos").innerHTML=TRAMOS.map(t=>`<div class="${t===ct?"on":""}"><span>${tramoLabel(t)}</span><b>${money(pub(v.cost,t.desde))}</b></div>`).join("");
+  $("#m-unit").textContent=`${money(u)} c/u × ${fmt(q)}`;$("#m-total").textContent=money(u*q);
+  $("#m-stock").textContent=v.q>0?(q>v.q?`Solo hay ${fmt(v.q)} unidades en este color. Pide otro color o te avisamos la reposición.`:`${fmt(v.q)} unidades disponibles en este color.`):"Este color está agotado. Elige otro color o consúltanos la reposición.";
+  $("#m-add").disabled=v.q<=0;
+}
+$("#m-colors").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;curV=cur.v[b.dataset.i];upd()});
+$("#m-qty").addEventListener("input",upd);
+$("#q-minus").addEventListener("click",()=>{$("#m-qty").value=Math.max(1,(parseInt($("#m-qty").value)||1)-10);upd()});
+$("#q-plus").addEventListener("click",()=>{$("#m-qty").value=(parseInt($("#m-qty").value)||0)+10;upd()});
+$("#m-close").addEventListener("click",()=>modal.close());
+modal.addEventListener("click",e=>{if(e.target===modal)modal.close()});
+$("#m-add").addEventListener("click",()=>{addCart(cur,curV,Math.max(1,parseInt($("#m-qty").value)||1));modal.close()});
+
+/* Socio: copiar */
+function shareText(kind){const s=store.get("ps_socio",{});const m=cur,v=curV;const pr=money(pub(v.cost));const colores=m.v.filter(x=>x.q>0).map(x=>niceColor(x.color)).join(", ");
+  if(kind==="redes")return `${m.name.toUpperCase()} personalizado con tu logo\n\nColores: ${colores}\nDesde ${pr} c/u\nIdeal para regalos corporativos, eventos y campañas.\n\nCotiza por WhatsApp: ${s.wa||""}\nCódigo: ${s.code||""}\n\n#ArticulosPromocionales #Merchandising #RegalosCorporativos`;
+  if(kind==="wa")return `*${m.name}*\nColores: ${colores}\nPrecio: *${pr}* c/u (sin IVA)\nPersonalizado con tu logo.\nCódigo de pedido: ${s.code||""}`;
+  return `<div style="max-width:300px;font-family:Arial,sans-serif;border:1px solid #e3daf1;border-radius:14px;overflow:hidden;background:#fff"><img src="${IMG(v.id)}" alt="${esc(m.name)}" style="width:100%;display:block"><div style="padding:14px"><h3 style="margin:0 0 6px;font-size:16px;color:#1F0F3A">${esc(m.name)}</h3><p style="margin:0 0 8px;font-size:13px;color:#6A5C83">Colores: ${esc(colores)}</p><p style="margin:0 0 12px;font-size:20px;font-weight:bold;color:#3B1670">${pr} <span style="font-size:12px;font-weight:normal">c/u</span></p><a href="https://wa.me/593${String(s.wa||"").replace(/\D/g,"").replace(/^0/,"")}?text=${encodeURIComponent("Hola, quiero cotizar "+m.name+" (código "+(s.code||"")+")")}" style="display:block;text-align:center;background:#E2561A;color:#fff;padding:10px;border-radius:999px;text-decoration:none;font-weight:bold">Cotizar por WhatsApp</a></div></div>`;
+}
+$$("[data-share]").forEach(b=>b.addEventListener("click",()=>copy(shareText(b.dataset.share),{redes:"Texto para redes copiado",wa:"Ficha para WhatsApp copiada",web:"Código para tu web copiado"}[b.dataset.share])));
+
+/* Cotización */
+let cart=store.get("ps_cart",[]);
+function addCart(m,v,q){const ex=cart.find(i=>i.id===v.id&&i.k===m.key);if(ex)ex.q+=q;else cart.push({k:m.key,id:v.id,name:m.name,color:niceColor(v.color),code:v.code,cost:v.cost,unit:pub(v.cost,q),q,own:!!m.own,img:m.own?m.img:null});saveCart();toast(`Agregado: ${fmt(q)} × ${m.name}`)}
+function saveCart(){store.set("ps_cart",cart);$("#cart-n").textContent=cart.length;drawCart()}
+function quoteText(){const n=$("#c-nombre").value.trim(),e=$("#c-empresa").value.trim();return `Hola Promo Shop, quiero cotizar:${n?"\nNombre: "+n:""}${e?"\nEmpresa: "+e:""}\n\n`+cart.map((i,k)=>`${k+1}. ${i.name} (${i.color}) · ${i.code} · ${fmt(i.q)} u. · ${money(unitOf(i)*i.q)}`).join("\n")+`\n\nSubtotal referencial: ${money(cart.reduce((a,i)=>a+unitOf(i)*i.q,0))} + IVA\nPersonalización: por confirmar`}
+function drawCart(){
+  $("#d-list").innerHTML=cart.length?cart.map((i,k)=>`<div class="li"><div class="pimg">${PH}<img src="${esc(i.own?i.img:IMG(i.id))}" alt="" onload="this.previousElementSibling&&this.previousElementSibling.remove()" onerror="this.remove()"></div><div style="min-width:0"><h4>${esc(i.name)}</h4><small>${esc(i.color)} · ${esc(i.code)} · ${money(unitOf(i))} c/u</small><input type="number" min="1" value="${i.q}" data-k="${k}" aria-label="Cantidad"> <button class="rm" data-rm="${k}" type="button">Quitar</button></div><div class="sum">${money(unitOf(i)*i.q)}</div></div>`).join(""):`<div class="empty" style="margin-top:10px">Tu cotización está vacía. Agrega productos desde el catálogo con el botón +.</div>`;
+  $("#d-total").textContent=money(cart.reduce((a,i)=>a+unitOf(i)*i.q,0));
+  $("#d-wa").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(quoteText());
+}
+$("#d-list").addEventListener("input",e=>{const k=e.target.dataset.k;if(k==null)return;cart[k].q=Math.max(1,parseInt(e.target.value)||1);store.set("ps_cart",cart);$("#d-total").textContent=money(cart.reduce((a,i)=>a+unitOf(i)*i.q,0));$("#d-wa").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(quoteText())});
+$("#d-list").addEventListener("change",e=>{if(e.target.dataset.k!=null)drawCart()});
+$("#d-list").addEventListener("click",e=>{const k=e.target.dataset.rm;if(k==null)return;cart.splice(k,1);saveCart()});
+["#c-nombre","#c-empresa"].forEach(s=>$(s).addEventListener("input",()=>$("#d-wa").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(quoteText())));
+$("#d-copy").addEventListener("click",()=>copy(quoteText(),"Cotización copiada"));
+const drawer=$("#drawer");
+function openCart(){drawer.classList.add("open");drawer.setAttribute("aria-hidden","false")}
+function closeCart(){drawer.classList.remove("open");drawer.setAttribute("aria-hidden","true")}
+$("#cart-open").addEventListener("click",openCart);$$("[data-open-cart]").forEach(b=>b.addEventListener("click",openCart));
+$("#cart-close").addEventListener("click",closeCart);drawer.addEventListener("click",e=>{if(e.target===drawer)closeCart()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart()});
+
+/* Socio registro */
+function showCode(){const s=store.get("ps_socio",null);if(!s)return;$("#code-box").hidden=false;$("#code-out").textContent=s.code}
+$("#f-socio").addEventListener("submit",e=>{e.preventDefault();const s={nombre:$("#s-nombre").value.trim(),empresa:$("#s-empresa").value.trim(),wa:$("#s-wa").value.trim(),ciudad:$("#s-ciudad").value.trim(),code:"PS-"+Math.floor(1000+Math.random()*9000)};store.set("ps_socio",s);showCode();toast("Bienvenido al programa. Tu código es "+s.code)});
+$("#code-copy").addEventListener("click",()=>copy($("#code-out").textContent,"Código copiado"));
+showCode();
+
+/* Panel interno */
+$("#p-cat").innerHTML=CATS.map(c=>`<option>${esc(c)}</option>`).join("");
+let upImg="";
+$("#p-img").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const r=Math.min(1,700/Math.max(im.width,im.height));const cv=document.createElement("canvas");cv.width=im.width*r;cv.height=im.height*r;cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height);upImg=cv.toDataURL("image/jpeg",.82)};im.src=fr.result};fr.readAsDataURL(f)});
+$("#f-prod").addEventListener("submit",e=>{e.preventDefault();custom.unshift({key:"own"+Date.now(),name:$("#p-nombre").value.trim(),cat:$("#p-cat").value,price:parseFloat($("#p-precio").value)||0,q:parseInt($("#p-stock").value)||0,img:upImg});store.set("ps_custom",custom);ALL=build();e.target.reset();upImg="";state.cat="Todos";render(true);toast("Producto publicado en el catálogo");location.hash="productos"});
+
+/* Cuentas (Supabase Auth: registro con confirmación por correo) */
+const authDlg=$("#auth");let sb=null;
+function authMsg(t,ok){const m=$("#auth-msg");m.hidden=!t;m.textContent=t||"";m.className="auth-msg "+(ok?"ok":"err")}
+function authReady(){if(sb)return true;authMsg("El inicio de sesión estará disponible muy pronto. Mientras tanto puedes cotizar sin cuenta.",false);return false}
+try{if(SUPABASE_URL&&SUPABASE_ANON_KEY&&window.supabase)sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY)}catch(e){sb=null}
+function setUser(u){const n=u&&(u.user_metadata&&u.user_metadata.nombre||u.email);$("#acct-label").textContent=u?("Hola, "+String(n).split(" ")[0]):"Ingresar";$("#auth-out").hidden=!!u;$("#auth-in-state").hidden=!u;if(u)$("#auth-email").textContent=u.email}
+$("#acct-btn").addEventListener("click",()=>{authMsg("");authDlg.showModal?authDlg.showModal():authDlg.setAttribute("open","")});
+$("#auth-close").addEventListener("click",()=>authDlg.close());
+authDlg.addEventListener("click",e=>{if(e.target===authDlg)authDlg.close()});
+$$("[data-at]").forEach(b=>b.addEventListener("click",()=>{$$("[data-at]").forEach(x=>x.setAttribute("aria-selected",x===b));$("#f-login").hidden=b.dataset.at!=="login";$("#f-signup").hidden=b.dataset.at!=="signup";authMsg("")}));
+$("#f-signup").addEventListener("submit",async e=>{e.preventDefault();if(!authReady())return;const btn=e.submitter;btn.disabled=true;
+  const {error}=await sb.auth.signUp({email:$("#r-email").value.trim(),password:$("#r-pass").value,options:{data:{nombre:$("#r-nombre").value.trim(),empresa:$("#r-empresa").value.trim()},emailRedirectTo:location.origin+location.pathname}});
+  btn.disabled=false;if(error)return authMsg(error.message.includes("registered")?"Ese correo ya tiene una cuenta. Inicia sesión.":"No pudimos crear la cuenta: "+error.message);
+  e.target.reset();authMsg("Listo. Te enviamos un correo de confirmación a tu bandeja. Abre el enlace para activar tu cuenta y luego inicia sesión.",true)});
+$("#f-login").addEventListener("submit",async e=>{e.preventDefault();if(!authReady())return;const btn=e.submitter;btn.disabled=true;
+  const {data,error}=await sb.auth.signInWithPassword({email:$("#l-email").value.trim(),password:$("#l-pass").value});btn.disabled=false;
+  if(error)return authMsg(/confirm/i.test(error.message)?"Aún no confirmas tu correo. Revisa tu bandeja (y la carpeta de spam).":"Correo o contraseña incorrectos.");
+  setUser(data.user);authMsg("");authDlg.close();toast("Sesión iniciada")});
+$("#forgot").addEventListener("click",async()=>{if(!authReady())return;const em=$("#l-email").value.trim();if(!em)return authMsg("Escribe tu correo arriba y vuelve a tocar «Olvidé mi contraseña».");
+  const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});authMsg(error?"No pudimos enviar el correo: "+error.message:"Te enviamos un enlace para restablecer tu contraseña.",!error)});
+$("#logout").addEventListener("click",async()=>{if(sb)await sb.auth.signOut();setUser(null);authDlg.close();toast("Sesión cerrada")});
+if(sb){sb.auth.getSession().then(({data})=>setUser(data.session&&data.session.user));sb.auth.onAuthStateChange((ev,s)=>{setUser(s&&s.user);if(ev==="SIGNED_IN"&&location.hash.includes("access_token"))toast("Correo confirmado. ¡Bienvenido!")})}
+
+/* Utilidades */
+let tt;function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2400)}
+function copy(text,ok){try{navigator.clipboard.writeText(text).then(()=>toast(ok||"Copiado"),()=>toast("No se pudo copiar. Intenta de nuevo."))}catch(e){toast("No se pudo copiar en este navegador.")}}
+
+render(true);saveCart();
+})();
+</script>
+
+</body>
+</html>
