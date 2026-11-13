@@ -658,7 +658,7 @@ const niceColor=c=>c==="ÚNICO"?"Único":nice(c.replace(/ (TRASL|SOL)$/," $1").r
 let custom=store.get("ps_custom",[]);
 function build(){
   const base=DATA.map((m,i)=>({key:"m"+i,name:nice(m.n),cat:m.c,v:m.v.map(v=>({id:v[0],code:v[1],color:v[2],cost:v[3],q:v[4]}))}));
-  const own=custom.map(c=>({key:c.key,name:c.name,cat:c.cat,own:true,img:c.img,v:[{id:0,code:"PS-"+c.key.slice(-4),color:"ÚNICO",cost:c.price/(TRAMOS[0].factor*EXTRA_TOTAL),q:c.q}]}));
+  const own=custom.map(c=>({key:c.key,name:c.name,cat:c.cat,own:true,img:c.img,v:[{id:0,code:"LT-"+c.key.slice(-4),color:"ÚNICO",cost:c.price/(TRAMOS[0].factor*EXTRA_TOTAL),q:c.q}]}));
   return [...own,...base].map(m=>{m.q=m.v.reduce((a,v)=>a+v.q,0);m.min=Math.min(...m.v.map(v=>v.cost));m.cover=m.v.find(v=>v.q>0)||m.v[0];return m});
 }
 let ALL=build();
@@ -807,7 +807,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCart()});
 
 /* Socio registro */
 function showCode(){const s=store.get("ps_socio",null);if(!s)return;$("#code-box").hidden=false;$("#code-out").textContent=s.code}
-$("#f-socio").addEventListener("submit",e=>{e.preventDefault();const s={nombre:$("#s-nombre").value.trim(),empresa:$("#s-empresa").value.trim(),wa:$("#s-wa").value.trim(),ciudad:$("#s-ciudad").value.trim(),code:"PS-"+Math.floor(1000+Math.random()*9000)};store.set("ps_socio",s);showCode();toast("Bienvenido al programa. Tu código es "+s.code)});
+$("#f-socio").addEventListener("submit",e=>{e.preventDefault();const s={nombre:$("#s-nombre").value.trim(),empresa:$("#s-empresa").value.trim(),wa:$("#s-wa").value.trim(),ciudad:$("#s-ciudad").value.trim(),code:"LT-"+Math.floor(1000+Math.random()*9000)};store.set("ps_socio",s);showCode();toast("Bienvenido al programa. Tu código es "+s.code)});
 $("#code-copy").addEventListener("click",()=>copy($("#code-out").textContent,"Código copiado"));
 showCode();
 
