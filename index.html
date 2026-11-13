@@ -163,6 +163,12 @@ select.sort{border:1.5px solid var(--line);background:var(--surface);border-radi
 .price small{display:block;font-size:11px;color:var(--muted)}
 .price b{font-family:var(--f-display);font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
 .add{width:38px;height:38px;border-radius:12px;border:0;background:var(--brand);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none}
+.card .buy{display:flex;align-items:center;gap:6px;flex:none}
+.card .qty{width:62px;height:38px;border:1.5px solid #D9D0E8;border-radius:12px;text-align:center;font:inherit;font-weight:700;font-size:15px;color:var(--ink);background:#fff;-moz-appearance:textfield}
+.card .qty::-webkit-outer-spin-button,.card .qty::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.card .qty:focus{outline:2px solid var(--orange);outline-offset:1px}
+.card .vol2{display:block;margin-top:8px;font-size:11.5px;color:var(--ok);font-weight:600}
+.card .vol2 b{font-weight:800}
 .add:hover{background:var(--orange-2)}
 .add svg{width:18px;height:18px}
 .more{display:flex;justify-content:center;margin-top:26px}
@@ -732,7 +738,8 @@ function card(m){
     <div class="pimg">${frameTag(m)}${stockPill(m.q)}</div>
     <div class="body"><span class="cat">${esc(m.cat)}</span><h3>${esc(m.name)}</h3>
       <div class="dots">${cols}${m.v.length>1?`<small>${m.v.length} colores</small>`:""}</div>
-      <div class="foot"><div class="price"><small>1–49 u.</small><b>${money(pub(m.min))}</b><small class="vol">Desde ${money(pub(m.min,1000))} por volumen</small></div><button class="add" type="button" data-add aria-label="Agregar ${esc(m.name)} a la cotización"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div>
+      <div class="foot"><div class="price"><b class="pu">${money(pub(m.min,50))}</b><small>precio c/u</small></div><div class="buy"><input class="qty" type="number" min="1" step="1" value="50" inputmode="numeric" aria-label="Cantidad de ${esc(m.name)}"><button class="add" type="button" data-add aria-label="Agregar ${esc(m.name)} a la cotización"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+      <small class="vol2">Mejor precio: <b>${money(pub(m.min,1000))} c/u</b> desde 1.000 piezas</small>
     </div></article>`;
 }
 function render(reset){
@@ -742,7 +749,8 @@ function render(reset){
   $("#count").textContent=`${l.length} productos`;
   $("#more").hidden=l.length<=state.shown;
 }
-$("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const m=ALL.find(x=>x.key===c.dataset.k);if(e.target.closest("[data-add]")){const v=m.cover;addCart(m,v,Math.min(50,Math.max(1,v.q)));return}openModal(m)});
+$("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(!c)return;const m=ALL.find(x=>x.key===c.dataset.k);if(e.target.closest(".qty"))return;if(e.target.closest("[data-add]")){const v=m.cover;const q=Math.max(1,parseInt(c.querySelector(".qty")?.value,10)||1);addCart(m,v,q);return}openModal(m)});
+$("#grid").addEventListener("input",e=>{const i=e.target.closest(".qty");if(!i)return;const c=i.closest(".card");const m=ALL.find(x=>x.key===c.dataset.k);const q=Math.max(1,parseInt(i.value,10)||1);c.querySelector(".pu").textContent=money(pub(m.min,q))});
 $("#grid").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("card"))openModal(ALL.find(x=>x.key===e.target.dataset.k))});
 
 /* Modal */
